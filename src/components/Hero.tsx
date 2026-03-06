@@ -18,20 +18,20 @@ export default function Hero() {
 
       {/* Vivid background orbs (on top of the overlay) */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-24 -top-24 h-96 w-96 rounded-full bg-purple-400/30 blur-3xl animate-pulse" />
-        <div className="absolute -right-24 top-32 h-96 w-96 rounded-full bg-pink-400/30 blur-3xl" />
-        <div className="absolute left-1/2 bottom-0 h-96 w-96 -translate-x-1/2 rounded-full bg-blue-400/20 blur-3xl" />
+        <div className="absolute -left-24 -top-24 h-96 w-96 rounded-full bg-gray-400/30 blur-3xl animate-pulse" />
+        <div className="absolute -right-24 top-32 h-96 w-96 rounded-full bg-amber-400/30 blur-3xl" />
+        <div className="absolute left-1/2 bottom-0 h-96 w-96 -translate-x-1/2 rounded-full bg-gray-400/20 blur-3xl" />
       </div>
 
       <div className="relative mx-auto max-w-6xl px-4 py-20 md:py-32">
-        <div className="inline-flex items-center gap-2 rounded-full border-2 border-purple-300 bg-white/90 backdrop-blur-sm px-4 py-2 text-xs font-bold text-purple-700 shadow-lg shadow-purple-500/20">
+        <div className="inline-flex items-center gap-2 rounded-full border-2 border-gray-300 bg-white/90 backdrop-blur-sm px-4 py-2 text-xs font-bold text-gray-900 shadow-lg shadow-gray-900/20">
           <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-pulse" />
           AI + Web + Google + Social Growth
         </div>
 
         <h1 className="mt-8 text-5xl font-black leading-tight text-gray-900 md:text-7xl lg:text-8xl">
           Make your business{" "}
-          <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-gray-800 via-gray-900 to-amber-600 bg-clip-text text-transparent">
             impossible
           </span>{" "}
           to miss.
@@ -46,24 +46,24 @@ export default function Hero() {
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
           <Link
             href="#contact"
-            className="group rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 px-8 py-4 text-center text-base font-bold text-white shadow-2xl shadow-purple-500/50 hover:shadow-pink-500/50 transition-all duration-300 hover:scale-105"
+            className="group rounded-2xl bg-gradient-to-r from-gray-800 via-gray-900 to-amber-600 px-8 py-4 text-center text-base font-bold text-white shadow-2xl shadow-gray-900/50 hover:shadow-amber-600/50 transition-all duration-300 hover:scale-105"
           >
             Get a Free Visibility Audit
           </Link>
 
           <Link
             href="#services"
-            className="rounded-2xl border-2 border-purple-300 bg-white/80 backdrop-blur-sm px-8 py-4 text-center text-base font-bold text-purple-700 hover:bg-purple-50 hover:border-purple-400 transition-all duration-300"
+            className="rounded-2xl border-2 border-gray-300 bg-white/80 backdrop-blur-sm px-8 py-4 text-center text-base font-bold text-gray-900 hover:bg-gray-50 hover:border-amber-500 transition-all duration-300"
           >
             See Services
           </Link>
         </div>
 
         <div className="mt-12 grid grid-cols-2 gap-5 sm:grid-cols-4">
-          <Stat label="Websites" value="Fast + Modern" color="from-purple-500 to-pink-500" />
-          <Stat label="Google Maps" value="Local SEO" color="from-blue-500 to-cyan-500" />
-          <Stat label="Socials" value="Content + Growth" color="from-pink-500 to-rose-500" />
-          <Stat label="Automation" value="AI Tools" color="from-indigo-500 to-purple-500" />
+          <Stat label="Websites" value="Fast + Modern" color="from-gray-700 to-amber-500" />
+          <Stat label="Google Maps" value="Local SEO" color="from-gray-700 to-gray-600" />
+          <Stat label="Socials" value="Content + Growth" color="from-amber-500 to-amber-600" />
+          <Stat label="Automation" value="AI Tools" color="from-gray-600 to-gray-800" />
         </div>
       </div>
     </section>
@@ -80,7 +80,7 @@ function Stat({
   color: string;
 }) {
   return (
-    <div className="group rounded-2xl border-2 border-purple-200 bg-white/90 backdrop-blur-sm p-5 shadow-lg hover:shadow-2xl hover:border-purple-400 transition-all duration-300 hover:scale-105">
+    <div className="group rounded-2xl border-2 border-gray-200 bg-white/90 backdrop-blur-sm p-5 shadow-lg hover:shadow-2xl hover:border-amber-500 transition-all duration-300 hover:scale-105">
       <div className={`text-lg font-bold bg-gradient-to-r ${color} bg-clip-text text-transparent`}>
         {value}
       </div>

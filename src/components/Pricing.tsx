@@ -26,7 +26,7 @@ export default function Pricing() {
   return (
     <section id="pricing" className="mx-auto max-w-6xl px-4 py-20">
       <div className="text-center">
-        <h2 className="text-4xl font-black md:text-5xl bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">Simple pricing</h2>
+        <h2 className="text-4xl font-black md:text-5xl bg-gradient-to-r from-gray-800 via-gray-900 to-amber-600 bg-clip-text text-transparent p-2">Simple pricing</h2>
         <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-700 font-medium">
           Clear plans. Real results. Cancel anytime.
         </p>
@@ -39,19 +39,19 @@ export default function Pricing() {
             className={[
               "rounded-2xl border-2 p-8 transition-all duration-300 hover:scale-105",
               p.highlight
-                ? "border-purple-400 bg-gradient-to-br from-purple-50 to-pink-50 shadow-2xl ring-4 ring-purple-200"
-                : "border-purple-200 bg-white/90 backdrop-blur-sm shadow-xl hover:shadow-2xl hover:border-purple-400",
+                ? "border-amber-500 bg-gradient-to-br from-gray-50 to-amber-50 shadow-2xl ring-4 ring-amber-200"
+                : "border-gray-200 bg-white/90 backdrop-blur-sm shadow-xl hover:shadow-2xl hover:border-amber-500",
             ].join(" ")}
           >
             <div className="flex items-center justify-between">
               <h3 className="text-gray-900 text-xl font-black">{p.name}</h3>
               {p.highlight && (
-                <span className="rounded-full bg-gradient-to-r from-purple-600 to-pink-600 px-3 py-1 text-xs font-bold text-white shadow-lg">
+                <span className="rounded-full bg-gradient-to-r from-gray-700 to-amber-500 px-3 py-1 text-xs font-bold text-white shadow-lg">
                   Most Popular
                 </span>
               )}
             </div>
-            <div className="mt-4 text-4xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{p.price}</div>
+            <div className="mt-4 text-4xl font-black bg-gradient-to-r from-gray-700 to-amber-500 bg-clip-text text-transparent">{p.price}</div>
             <p className="mt-3 text-sm text-gray-700 font-medium">{p.desc}</p>
 
             <ul className="mt-6 space-y-3 text-sm">
