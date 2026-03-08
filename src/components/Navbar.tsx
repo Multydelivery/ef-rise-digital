@@ -3,112 +3,149 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { Space_Grotesk } from "next/font/google";
+import { motion, AnimatePresence } from "framer-motion";
+import { Poppins } from "next/font/google";
 
-const spaceGrotesk = Space_Grotesk({ 
+const poppins = Poppins({ 
   subsets: ["latin"],
-  weight: ["700"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const navLinks = [
+    { name: "Services", href: "#services" },
+    { name: "Work", href: "#work" },
+    { name: "Pricing", href: "#pricing" },
+    { name: "Contact", href: "#contact" },
+  ];
+
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-200/50 bg-white/95 backdrop-blur-xl shadow-lg shadow-gray-900/10">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-3 group">
-         <Image
-            src="/enflogorocket.png"
-            alt="E&F Rise Digital"
-            width={100}
-            height={100}
-            className="w-40 sm:w-44 md:w-48 lg:w-52 h-auto drop-shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_25px_rgba(212,175,55,0.6)]"
-            priority
-          />
-          <span className={`text-lg md:text-xl font-bold tracking-tight bg-gradient-to-r from-gray-800 via-gray-900 to-amber-600 bg-clip-text text-transparent ${spaceGrotesk.className}`}>
-            E&F Rise Digital
-          </span>
-        </Link>
-
-        <nav className="hidden items-center gap-8 md:flex">
-          <Link href="#services" className="text-sm font-medium text-gray-700 hover:text-amber-600 transition-colors">
-            Services
-          </Link>
-          <Link href="#work" className="text-sm font-medium text-gray-700 hover:text-amber-600 transition-colors">
-            Work
-          </Link>
-          <Link href="#pricing" className="text-sm font-medium text-gray-700 hover:text-amber-600 transition-colors">
-            Pricing
-          </Link>
-          <Link href="#contact" className="text-sm font-medium text-gray-700 hover:text-amber-600 transition-colors">
-            Contact
-          </Link>
-        </nav>
-
-        <div className="flex items-center gap-4">
-          <Link
-            href="#contact"
-            className="hidden md:block rounded-xl bg-gradient-to-r from-gray-900 via-gray-800 to-amber-600 px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-gray-900/50 hover:shadow-xl hover:shadow-amber-600/50 transition-all duration-300 hover:scale-105"
-          >
-            Get a Free Audit
+    <motion.header 
+      className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 via-black/85 to-black/80 backdrop-blur-md border-b border-amber-500/20"
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between">
+          
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <motion.div
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
+              <Image
+                src="/enflogorocket.png"
+                alt="E&F Rise Digital"
+                width={160}
+                height={160}
+                className="w-32 sm:w-36 md:w-40 h-auto"
+                priority
+              />
+            </motion.div>
+            <span className={`hidden lg:block text-xl font-bold text-white tracking-tight ${poppins.className}`}>
+              E&F Rise Digital
+            </span>
           </Link>
 
-          {/* Hamburger Menu Button */}
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`px-4 py-2 text-sm font-medium text-white/90 hover:text-amber-400 hover:bg-white/5 rounded-lg transition-all duration-200 ${poppins.className}`}
+              >
+                {link.name}
+              </Link>
+            ))}
+            
+            <Link
+              href="#contact"
+              className={`ml-3 px-6 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-semibold rounded-lg shadow-lg shadow-amber-500/30 hover:shadow-amber-400/40 transition-all duration-300 hover:-translate-y-0.5 ${poppins.className}`}
+            >
+              Start Now
+            </Link>
+          </nav>
+
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden flex flex-col gap-1.5 p-2"
+            className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors"
             aria-label="Toggle menu"
           >
-            <span className={`w-6 h-0.5 bg-gray-700 transition-all ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-            <span className={`w-6 h-0.5 bg-gray-700 transition-all ${isMenuOpen ? 'opacity-0' : ''}`}></span>
-            <span className={`w-6 h-0.5 bg-gray-700 transition-all ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+            <div className="w-6 flex flex-col items-center justify-center gap-1.5">
+              <motion.span
+                className="w-full h-0.5 bg-white rounded-full"
+                animate={isMenuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+                transition={{ duration: 0.2 }}
+              />
+              <motion.span
+                className="w-full h-0.5 bg-white rounded-full"
+                animate={isMenuOpen ? { opacity: 0, width: 0 } : { opacity: 1, width: "100%" }}
+                transition={{ duration: 0.2 }}
+              />
+              <motion.span
+                className="w-full h-0.5 bg-white rounded-full"
+                animate={isMenuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
+                transition={{ duration: 0.2 }}
+              />
+            </div>
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden border-t border-gray-200/50 bg-white/95 backdrop-blur-xl">
-          <nav className="flex flex-col px-4 py-4 gap-4">
-            <Link 
-              href="#services" 
-              className="text-sm font-medium text-gray-700 hover:text-amber-600 transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Services
-            </Link>
-            <Link 
-              href="#work" 
-              className="text-sm font-medium text-gray-700 hover:text-amber-600 transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Work
-            </Link>
-            <Link 
-              href="#pricing" 
-              className="text-sm font-medium text-gray-700 hover:text-amber-600 transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Pricing
-            </Link>
-            <Link 
-              href="#contact" 
-              className="text-sm font-medium text-gray-700 hover:text-amber-600 transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Contact
-            </Link>
-            <Link
-              href="#contact"
-              className="rounded-xl bg-gradient-to-r from-gray-900 via-gray-800 to-amber-600 px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-gray-900/50 text-center mt-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Get a Free Audit
-            </Link>
-          </nav>
-        </div>
-      )}
-    </header>
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="md:hidden border-t border-amber-500/20 bg-black/95 backdrop-blur-lg"
+          >
+            <nav className="px-4 py-6 space-y-2">
+              {navLinks.map((link, index) => (
+                <motion.div
+                  key={link.name}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`block px-4 py-3 text-base font-medium text-white/90 hover:text-amber-400 hover:bg-white/5 rounded-lg transition-all ${poppins.className}`}
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
+              ))}
+              
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="pt-4"
+              >
+                <Link
+                  href="#contact"
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`block w-full px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-semibold text-center rounded-lg shadow-lg shadow-amber-500/30 transition-all ${poppins.className}`}
+                >
+                  Start Now
+                </Link>
+              </motion.div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 }
