@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Poppins } from "next/font/google";
 
@@ -14,6 +14,16 @@ const poppins = Poppins({
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
     { name: "Services", href: "#services" },
@@ -24,31 +34,37 @@ export default function Navbar() {
 
   return (
     <motion.header 
-      className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 via-black/85 to-black/80 backdrop-blur-md border-b border-amber-500/20"
+      className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
+        isScrolled 
+          ? "bg-black/95 border-white/20 shadow-lg" 
+          : "bg-transparent border-white/10"
+      }`}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex h-16 sm:h-20 items-center justify-between">
           
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
             <motion.div
-              whileHover={{ scale: 1.08 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-white/20 shadow-lg shadow-black/20"
             >
               <Image
-                src="/enflogorocket.png"
+                src="/enfrisedigitalrocketearth.png"
                 alt="E&F Rise Digital"
-                width={160}
-                height={160}
-                className="w-32 sm:w-36 md:w-40 h-auto"
+                width={120}
+                height={120}
+                className="w-full h-full object-cover"
                 priority
+                style={{ mixBlendMode: "normal" }}
               />
             </motion.div>
-            <span className={`hidden lg:block text-xl font-bold text-white tracking-tight ${poppins.className}`}>
+            <span className={`hidden sm:block text-base sm:text-lg md:text-xl font-bold text-white tracking-tight ${poppins.className}`}>
               E&F Rise Digital
             </span>
           </Link>

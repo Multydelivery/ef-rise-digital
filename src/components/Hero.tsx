@@ -61,7 +61,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="relative mx-auto max-w-6xl px-4 py-20 md:py-32">
+      <div className="relative mx-auto max-w-6xl px-4 pt-32 pb-20 md:pt-40 md:pb-32">
         <motion.div 
           className="inline-flex items-center gap-2 rounded-full border-2 border-gray-300 bg-white/90 backdrop-blur-sm px-4 py-2 text-xs font-bold text-gray-900 shadow-lg shadow-gray-900/20"
           initial={{ opacity: 0, y: -20 }}
