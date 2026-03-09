@@ -50,8 +50,8 @@ export async function POST(req: Request) {
       );
     }
 
-    // Get the Gemini model (using gemini-1.5-flash - it's faster and still free)
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    // Get the Gemini model (using gemini-1.5-pro - stable free version)
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
 
     // Convert messages to Gemini format
     // Skip the initial assistant greeting if it's the first message
