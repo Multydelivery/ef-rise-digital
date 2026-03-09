@@ -35,7 +35,7 @@ export async function POST(req: Request) {
     if (responseMessage.tool_calls && responseMessage.tool_calls.length > 0) {
       // Execute all tool calls
       const toolResults = await Promise.all(
-        responseMessage.tool_calls.map(async (toolCall) => {
+        responseMessage.tool_calls.map(async (toolCall: any) => {
           const functionName = toolCall.function.name;
           const functionArgs = JSON.parse(toolCall.function.arguments);
           
