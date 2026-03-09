@@ -65,7 +65,7 @@ export async function POST(req: Request) {
       
       return NextResponse.json({
         message: finalCompletion.choices[0].message.content,
-        toolsUsed: responseMessage.tool_calls.map(tc => tc.function.name),
+        toolsUsed: responseMessage.tool_calls.map((tc: any) => tc.function.name),
       });
     }
     
