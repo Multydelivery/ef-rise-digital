@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
 import type { Lead, ServiceCategory } from '@/types/lead';
-// import { getDatabase } from './mongodb'; // Temporarily disabled for testing
+import { getDatabase } from './mongodb';
 
 export const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -208,18 +208,18 @@ async function saveLead(args: Partial<Lead>) {
     updatedAt: new Date(),
   };
   
-  // TEMPORARY: Log to console instead of saving to MongoDB
-  console.log('📋 LEAD CAPTURED (Test Mode - Not Saved to DB):', {
+  // Save to MongoDB
+  const db = await getDatabase();
+  const result = await db.collection('leads').insertOne(lead);
+  
+  console.log('📋 LEAD CAPTURED & SAVED:', {
     name: lead.name,
     email: lead.email,
     business: lead.businessName,
     service: lead.serviceCategory,
-    score: lead.score
+    score: lead.score,
+    leadId: result.insertedId
   });
-  
-  // Simulate successful save
-  // const db = await getDatabase();
-  // const result = await db.collection('leads').insertOne(lead);
   
   // Phase 2: Send email notification (uncomment when ready)
   // await sendLeadNotification(lead);
@@ -227,7 +227,7 @@ async function saveLead(args: Partial<Lead>) {
   return {
     success: true,
     message: `Great! I've saved your information. ${score === 'high' ? 'I see this is a priority - ' : ''}We'll reach out within 24 hours to discuss how we can help ${args.businessName}.`,
-    data: { leadId: 'test-' + Date.now(), score },
+    data: { leadId: result.insertedId.toString(), score },
   };
 }
 
