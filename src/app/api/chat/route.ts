@@ -30,6 +30,17 @@ Then recommend a package based on their needs.`;
 
 export async function POST(req: Request) {
   try {
+    // Check if API key is configured
+    if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === 'your-gemini-api-key-here') {
+      return NextResponse.json(
+        { 
+          error: 'Gemini API key not configured',
+          message: 'Please add your FREE Gemini API key to .env.local. Get one at: https://aistudio.google.com/app/apikey'
+        },
+        { status: 500 }
+      );
+    }
+
     const { messages }: { messages: ChatMessage[] } = await req.json();
     
     if (!messages || !Array.isArray(messages)) {
@@ -43,7 +54,10 @@ export async function POST(req: Request) {
     const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
 
     // Convert messages to Gemini format
-    const chatHistory = messages.slice(0, -1).map(msg => ({
+    // Skip the initial assistant greeting if it's the first message
+    const relevantMessages = messages[0]?.role === 'assistant' ? messages.slice(1) : messages;
+    
+    const chatHistory = relevantMessages.slice(0, -1).map(msg => ({
       role: msg.role === 'assistant' ? 'model' : 'user',
       parts: [{ text: msg.content }],
     }));
@@ -57,8 +71,8 @@ export async function POST(req: Request) {
     });
 
     // Send the latest message with system prompt context
-    const lastMessage = messages[messages.length - 1];
-    const prompt = messages.length === 1 
+    const lastMessage = relevantMessages[relevantMessages.length - 1];
+    const prompt = chatHistory.length === 0 
       ? `${systemPrompt}\n\nUser: ${lastMessage.content}`
       : lastMessage.content;
 

@@ -56,11 +56,19 @@ export default function ChatWidget() {
         body: JSON.stringify({ messages: newMessages }),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to get response');
-      }
-
       const data = await response.json();
+      
+      if (!response.ok) {
+        // Show the error message from the API
+        setMessages([
+          ...newMessages,
+          {
+            role: 'assistant',
+            content: data.message || data.error || "I'm having trouble connecting. Please try again or use the contact form below.",
+          },
+        ]);
+        return;
+      }
       
       setMessages([
         ...newMessages,
