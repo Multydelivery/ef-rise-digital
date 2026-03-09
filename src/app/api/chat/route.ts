@@ -87,7 +87,10 @@ export async function POST(req: Request) {
     
     if (error?.status === 429) {
       return NextResponse.json(
-        { error: 'Rate limit exceeded. Please try again in a moment.' },
+        { 
+          error: 'OpenAI quota exceeded',
+          message: 'Your OpenAI API key has no credits remaining. Please add credits at https://platform.openai.com/settings/organization/billing' 
+        },
         { status: 429 }
       );
     }

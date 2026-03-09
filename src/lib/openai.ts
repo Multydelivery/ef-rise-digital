@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
 import type { Lead, ServiceCategory } from '@/types/lead';
-import { getDatabase } from './mongodb';
+// import { getDatabase } from './mongodb'; // Temporarily disabled for testing
 
 export const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -182,7 +182,8 @@ export async function executeFunction(
 
 // Save lead to MongoDB
 async function saveLead(args: Partial<Lead>) {
-  const db = await getDatabase();
+  // TEMPORARY: Simulating MongoDB save for testing
+  // TODO: Re-enable MongoDB connection once setup is complete
   
   // Calculate lead score based on budget and urgency
   let score: 'low' | 'medium' | 'high' = 'medium';
@@ -207,7 +208,18 @@ async function saveLead(args: Partial<Lead>) {
     updatedAt: new Date(),
   };
   
-  const result = await db.collection('leads').insertOne(lead);
+  // TEMPORARY: Log to console instead of saving to MongoDB
+  console.log('📋 LEAD CAPTURED (Test Mode - Not Saved to DB):', {
+    name: lead.name,
+    email: lead.email,
+    business: lead.businessName,
+    service: lead.serviceCategory,
+    score: lead.score
+  });
+  
+  // Simulate successful save
+  // const db = await getDatabase();
+  // const result = await db.collection('leads').insertOne(lead);
   
   // Phase 2: Send email notification (uncomment when ready)
   // await sendLeadNotification(lead);
@@ -215,7 +227,7 @@ async function saveLead(args: Partial<Lead>) {
   return {
     success: true,
     message: `Great! I've saved your information. ${score === 'high' ? 'I see this is a priority - ' : ''}We'll reach out within 24 hours to discuss how we can help ${args.businessName}.`,
-    data: { leadId: result.insertedId.toString(), score },
+    data: { leadId: 'test-' + Date.now(), score },
   };
 }
 

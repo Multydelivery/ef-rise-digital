@@ -1,9 +1,17 @@
 import { NextResponse } from 'next/server';
-import { getDatabase } from '@/lib/mongodb';
+// import { getDatabase } from '@/lib/mongodb'; // Temporarily disabled for testing
 
 // GET all leads (for admin dashboard)
 // TODO: Add authentication before production use
+// TEMPORARY: Disabled while MongoDB is being set up
 export async function GET(req: Request) {
+  return NextResponse.json({ 
+    message: 'MongoDB temporarily disabled for testing',
+    leads: [],
+    note: 'Leads are being logged to console. Check terminal output.'
+  });
+  
+  /* Original code - re-enable when MongoDB is ready
   try {
     const { searchParams } = new URL(req.url);
     const status = searchParams.get('status');
@@ -35,11 +43,19 @@ export async function GET(req: Request) {
       { status: 500 }
     );
   }
+  */
 }
 
 // PATCH - Update lead status
 // TODO: Add authentication before production use
+// TEMPORARY: Disabled while MongoDB is being set up
 export async function PATCH(req: Request) {
+  return NextResponse.json({ 
+    message: 'MongoDB temporarily disabled for testing',
+    note: 'Re-enable when MongoDB is configured'
+  });
+  
+  /* Original code - re-enable when MongoDB is ready
   try {
     const { leadId, updates } = await req.json();
     
@@ -81,4 +97,5 @@ export async function PATCH(req: Request) {
       { status: 500 }
     );
   }
+  */
 }
