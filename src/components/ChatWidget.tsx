@@ -34,7 +34,7 @@ export default function ChatWidget() {
       setMessages([
         {
           role: 'assistant',
-          content: "Hi! 👋 I'm the E&F Rise Digital assistant. I help local businesses grow their online presence. What brings you here today?",
+          content: "Hey there! 👋 I'm your E&F Rise Digital assistant. I'm here to help your business shine online! How can I help you today?",
         },
       ]);
     }
@@ -98,50 +98,116 @@ export default function ChatWidget() {
   return (
     <>
       {/* Floating Chat Button */}
-      <motion.button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-gray-800 via-gray-900 to-amber-600 text-white shadow-2xl hover:shadow-amber-600/50 transition-all duration-300"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 1, type: 'spring' }}
-      >
-        <AnimatePresence mode="wait">
-          {isOpen ? (
-            <motion.svg
-              key="close"
-              initial={{ rotate: -90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
+        {/* Pulsing Ring Effect - Two versions for different screen sizes */}
+        {!isOpen && (
+          <>
+            <motion.div
+              className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 opacity-75 sm:hidden"
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: [0.75, 0, 0.75],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              style={{ width: '64px', height: '64px', left: '-4px', top: '-4px' }}
+            />
+            <motion.div
+              className="hidden sm:block absolute inset-0 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 opacity-75"
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: [0.75, 0, 0.75],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              style={{ width: '72px', height: '72px', left: '-4px', top: '-4px' }}
+            />
+          </>
+        )}
+        
+        {/* Chat Button */}
+        <motion.button
+          onClick={() => setIsOpen(!isOpen)}
+          className="relative flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 text-white shadow-2xl hover:shadow-amber-500/60 transition-all duration-300 ring-4 ring-white cursor-pointer"
+          whileHover={{ scale: 1.1, rotate: 5 }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ delay: 1, type: 'spring', stiffness: 200 }}
+        >
+          <AnimatePresence mode="wait">
+            {isOpen ? (
+              <motion.svg
+                key="close"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                className="h-7 w-7"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={3}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </motion.svg>
+            ) : (
+              <motion.div
+                key="agent"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0, opacity: 0 }}
+                className="h-12 w-12 sm:h-14 sm:w-14 flex items-center justify-center"
+              >
+                {/* Agent Avatar SVG */}
+                <svg viewBox="0 0 64 64" fill="none" className="h-10 w-10 sm:h-12 sm:w-12">
+                  {/* Head */}
+                  <circle cx="32" cy="28" r="16" fill="#FFF" />
+                  {/* Face details */}
+                  <circle cx="27" cy="26" r="2.5" fill="#1F2937" />
+                  <circle cx="37" cy="26" r="2.5" fill="#1F2937" />
+                  {/* Smile */}
+                  <path d="M 24 32 Q 32 36 40 32" stroke="#1F2937" strokeWidth="2" strokeLinecap="round" fill="none"/>
+                  {/* Body */}
+                  <path d="M 20 42 Q 20 40 22 40 L 42 40 Q 44 40 44 42 L 44 48 Q 44 50 42 50 L 22 50 Q 20 50 20 48 Z" fill="#FFF"/>
+                  {/* Tie */}
+                  <path d="M 32 40 L 30 48 L 32 52 L 34 48 Z" fill="#F59E0B"/>
+                </svg>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          
+          {/* New Message Badge */}
+          {!isOpen && (
+            <motion.div
+              className="absolute -top-1 -right-1 h-4 w-4 sm:h-5 sm:w-5 rounded-full bg-red-500 border-2 border-white"
+              initial={{ scale: 0 }}
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 1, repeat: Infinity }}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </motion.svg>
-          ) : (
-            <motion.svg
-              key="chat"
-              initial={{ rotate: -90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-              />
-            </motion.svg>
+              <span className="absolute inset-0 flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-white">!</span>
+            </motion.div>
           )}
-        </AnimatePresence>
-      </motion.button>
+        </motion.button>
+        
+        {/* "Chat with us!" Label - Hidden on mobile */}
+        {!isOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.5 }}
+            className="hidden sm:block absolute right-20 top-1/2 -translate-y-1/2 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-full shadow-lg font-semibold text-sm whitespace-nowrap"
+          >
+            💬 Chat with us!
+            <div className="absolute right-[-6px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] border-l-orange-500"></div>
+          </motion.div>
+        )}
+      </div>
 
       {/* Chat Window */}
       <AnimatePresence>
@@ -151,37 +217,110 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed bottom-24 right-6 z-50 flex h-[600px] w-full max-w-md flex-col overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-2xl"
+            className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-4 md:right-6 z-50 flex h-full sm:h-[600px] w-full sm:w-[380px] md:w-[420px] sm:max-w-md flex-col overflow-hidden sm:rounded-2xl border-0 sm:border-4 border-amber-400 bg-white shadow-2xl shadow-amber-500/20"
           >
             {/* Header */}
-            <div className="flex items-center gap-3 bg-gradient-to-r from-gray-800 via-gray-900 to-amber-600 p-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
-                <span className="text-xl">🤖</span>
+            <div className="relative flex items-center gap-3 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 p-4 sm:p-5 overflow-hidden">
+              {/* Background Animation */}
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 animate-pulse"></div>
+              
+              {/* Agent Avatar */}
+              <motion.div 
+                className="relative flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white shadow-lg ring-4 ring-white/30"
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: 'spring', delay: 0.2 }}
+              >
+                {/* Professional Agent Avatar SVG */}
+                <svg viewBox="0 0 64 64" fill="none" className="h-10 w-10 sm:h-12 sm:w-12">
+                  {/* Head */}
+                  <circle cx="32" cy="26" r="14" fill="#F59E0B" />
+                  {/* Face */}
+                  <circle cx="32" cy="28" r="12" fill="#FEF3C7" />
+                  {/* Eyes */}
+                  <circle cx="28" cy="27" r="2" fill="#1F2937" />
+                  <circle cx="36" cy="27" r="2" fill="#1F2937" />
+                  {/* Smile */}
+                  <path d="M 26 31 Q 32 35 38 31" stroke="#1F2937" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+                  {/* Body/Shoulders */}
+                  <ellipse cx="32" cy="50" rx="18" ry="12" fill="#F59E0B"/>
+                  <ellipse cx="32" cy="48" rx="16" ry="10" fill="#FCD34D"/>
+                  {/* Headset */}
+                  <path d="M 22 24 Q 22 18 26 18" stroke="#1F2937" strokeWidth="2" strokeLinecap="round" fill="none"/>
+                  <circle cx="21" cy="26" r="3" fill="#1F2937" />
+                </svg>
+                
+                {/* Online Status Indicator */}
+                <motion.div
+                  className="absolute bottom-0 right-0 h-3 w-3 sm:h-4 sm:w-4 rounded-full bg-green-500 border-2 border-white shadow-sm"
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+              </motion.div>
+              
+              <div className="flex-1 relative z-10">
+                <motion.h3 
+                  className="font-bold text-white text-base sm:text-lg drop-shadow-md"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  E&F Rise Assistant
+                </motion.h3>
+                <motion.div 
+                  className="flex items-center gap-2"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <div className="flex items-center gap-1">
+                    <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-green-400 animate-pulse"></span>
+                    <p className="text-xs text-white/95 font-medium">Online now</p>
+                  </div>
+                </motion.div>
               </div>
-              <div className="flex-1">
-                <h3 className="font-bold text-white">E&F Rise Digital</h3>
-                <p className="text-xs text-white/80">Usually replies instantly</p>
-              </div>
+              
+              {/* Close button for mobile */}
+              <motion.button
+                onClick={() => setIsOpen(false)}
+                className="sm:hidden relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors cursor-pointer"
+                whileTap={{ scale: 0.95 }}
+              >
+                <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </motion.button>
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 space-y-4 overflow-y-auto bg-gray-50 p-4">
+            <div className="flex-1 space-y-3 sm:space-y-4 overflow-y-auto bg-gradient-to-b from-orange-50 to-amber-50 p-3 sm:p-4">
               {messages.map((msg, idx) => (
                 <motion.div
                   key={idx}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.05 }}
-                  className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                  className={`flex gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
+                  {/* Assistant Avatar */}
+                  {msg.role === 'assistant' && (
+                    <div className="flex-shrink-0 h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-md">
+                      <svg viewBox="0 0 24 24" fill="white" className="h-4 w-4 sm:h-5 sm:w-5">
+                        <circle cx="9" cy="9" r="1.5" />
+                        <circle cx="15" cy="9" r="1.5" />
+                        <path d="M 8 12 Q 12 14 16 12" stroke="white" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+                      </svg>
+                    </div>
+                  )}
+                  
                   <div
-                    className={`max-w-[85%] rounded-2xl px-4 py-2 shadow-sm ${
+                    className={`max-w-[80%] sm:max-w-[75%] rounded-2xl px-3 py-2 sm:px-4 sm:py-3 shadow-md ${
                       msg.role === 'user'
-                        ? 'bg-gradient-to-r from-gray-800 to-amber-600 text-white'
-                        : 'bg-white text-gray-900 border border-gray-200'
+                        ? 'bg-gradient-to-br from-amber-500 to-orange-600 text-white rounded-br-sm'
+                        : 'bg-white text-gray-900 border-2 border-amber-200 rounded-bl-sm'
                     }`}
                   >
-                    <p className="whitespace-pre-wrap text-sm leading-relaxed">{msg.content}</p>
+                    <p className="whitespace-pre-wrap text-xs sm:text-sm leading-relaxed">{msg.content}</p>
                   </div>
                 </motion.div>
               ))}
@@ -190,24 +329,31 @@ export default function ChatWidget() {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="flex justify-start"
+                  className="flex justify-start gap-2"
                 >
-                  <div className="rounded-2xl border border-gray-200 bg-white px-4 py-3 shadow-sm">
+                  <div className="flex-shrink-0 h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-md">
+                    <svg viewBox="0 0 24 24" fill="white" className="h-4 w-4 sm:h-5 sm:w-5">
+                      <circle cx="9" cy="9" r="1.5" />
+                      <circle cx="15" cy="9" r="1.5" />
+                      <path d="M 8 12 Q 12 14 16 12" stroke="white" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+                    </svg>
+                  </div>
+                  <div className="rounded-2xl border-2 border-amber-200 bg-white px-4 sm:px-5 py-2 sm:py-3 shadow-md">
                     <div className="flex space-x-2">
                       <motion.div
-                        className="h-2 w-2 rounded-full bg-gray-400"
-                        animate={{ y: [0, -8, 0] }}
+                        className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500"
+                        animate={{ y: [0, -10, 0] }}
                         transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
                       />
                       <motion.div
-                        className="h-2 w-2 rounded-full bg-gray-400"
-                        animate={{ y: [0, -8, 0] }}
-                        transition={{ duration: 0.6, repeat: Infinity, delay: 0.1 }}
+                        className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500"
+                        animate={{ y: [0, -10, 0] }}
+                        transition={{ duration: 0.6, repeat: Infinity, delay: 0.15 }}
                       />
                       <motion.div
-                        className="h-2 w-2 rounded-full bg-gray-400"
-                        animate={{ y: [0, -8, 0] }}
-                        transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
+                        className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500"
+                        animate={{ y: [0, -10, 0] }}
+                        transition={{ duration: 0.6, repeat: Infinity, delay: 0.3 }}
                       />
                     </div>
                   </div>
@@ -218,7 +364,7 @@ export default function ChatWidget() {
             </div>
 
             {/* Input Area */}
-            <div className="border-t border-gray-200 bg-white p-4">
+            <div className="border-t-2 border-amber-200 bg-white p-3 sm:p-4 safe-area-inset-bottom">
               <div className="flex items-end gap-2">
                 <input
                   ref={inputRef}
@@ -228,23 +374,26 @@ export default function ChatWidget() {
                   onKeyPress={handleKeyPress}
                   placeholder="Type your message..."
                   disabled={isLoading}
-                  className="flex-1 rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-500 focus:border-amber-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-200 disabled:opacity-50 transition-all"
+                  className="flex-1 rounded-xl border-2 border-amber-300 bg-amber-50/50 px-3 py-2.5 sm:px-4 sm:py-3 text-sm text-gray-900 placeholder:text-gray-500 focus:border-orange-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-orange-200 disabled:opacity-50 transition-all duration-200"
                 />
                 <motion.button
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-gray-800 to-amber-600 text-white shadow-lg hover:shadow-amber-600/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                  className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-lg hover:shadow-orange-500/50 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 ring-2 ring-amber-200"
                 >
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                   </svg>
                 </motion.button>
               </div>
-              <p className="mt-2 text-xs text-gray-500">
-                Powered by AI • Your data is secure
-              </p>
+              <div className="mt-2 sm:mt-3 flex items-center justify-center gap-2">
+                <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-green-500 animate-pulse"></div>
+                <p className="text-[10px] sm:text-xs text-gray-600 font-medium">
+                  🔒 Secured by AI • Instant responses
+                </p>
+              </div>
             </div>
           </motion.div>
         )}
