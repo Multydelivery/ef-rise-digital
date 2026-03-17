@@ -83,7 +83,7 @@ export default function Navbar() {
                 style={{ mixBlendMode: "normal" }}
               />
             </motion.div>
-            <span className={`hidden sm:block text-base sm:text-lg md:text-xl font-bold text-white tracking-tight ${poppins.className}`}>
+            <span className={`hidden sm:block text-base sm:text-lg md:text-xl font-bold tracking-tight transition-colors duration-300 ${isScrolled ? 'text-white' : 'text-gray-900'} ${poppins.className}`}>
               E&F Rise Digital
             </span>
           </Link>
@@ -94,7 +94,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`px-4 py-2 text-sm font-medium text-white/90 hover:text-amber-400 hover:bg-white/5 rounded-lg transition-all duration-200 ${poppins.className}`}
+                className={`px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-200 ${isScrolled ? 'text-white/90 hover:bg-white/5' : 'text-gray-900 hover:bg-gray-100'} hover:text-gray-700 ${poppins.className}`}
               >
                 {link.name}
               </Link>
@@ -111,22 +111,22 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors"
+            className={`md:hidden relative w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${isScrolled ? 'hover:bg-white/10' : 'hover:bg-gray-900/10'}`}
             aria-label="Toggle menu"
           >
             <div className="w-6 flex flex-col items-center justify-center gap-1.5">
               <motion.span
-                className="w-full h-0.5 bg-white rounded-full"
+                className={`w-full h-0.5 rounded-full transition-colors duration-300 ${isScrolled ? 'bg-white' : 'bg-gray-900'}`}
                 animate={isMenuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
                 transition={{ duration: 0.2 }}
               />
               <motion.span
-                className="w-full h-0.5 bg-white rounded-full"
+                className={`w-full h-0.5 rounded-full transition-colors duration-300 ${isScrolled ? 'bg-white' : 'bg-gray-900'}`}
                 animate={isMenuOpen ? { opacity: 0, width: 0 } : { opacity: 1, width: "100%" }}
                 transition={{ duration: 0.2 }}
               />
               <motion.span
-                className="w-full h-0.5 bg-white rounded-full"
+                className={`w-full h-0.5 rounded-full transition-colors duration-300 ${isScrolled ? 'bg-white' : 'bg-gray-900'}`}
                 animate={isMenuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
                 transition={{ duration: 0.2 }}
               />

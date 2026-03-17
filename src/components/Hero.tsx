@@ -9,14 +9,15 @@ export default function Hero() {
     <section className="relative overflow-hidden">
       {/* Background image */}
       <Image
-        src="/risetowerheroimg.png" // put this image in /public/risetowerheroimg.png
-        alt="E&F Rise Digital background"
+        src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
+        alt="Modern skyscraper rising - E&F Rise Digital"
         fill
         priority
         className="object-cover"
       />
 
       {/* Overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/50 to-white/40" />
       
 
       {/* Vivid background orbs (on top of the overlay) */}
@@ -86,10 +87,11 @@ export default function Hero() {
         </motion.h1>
 
         <motion.p 
-          className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-700 md:text-xl font-medium"
+          className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-900 md:text-xl font-bold"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          style={{ textShadow: '0 2px 4px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.8)' }}
         >
           E&F Rise Digital helps local businesses get more customers with modern websites, Google
           Business Profile optimization, and high-performing social content — powered by automation
