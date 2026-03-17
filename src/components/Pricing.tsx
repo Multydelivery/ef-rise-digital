@@ -62,8 +62,33 @@ export default function Pricing() {
                 </li>
               ))}
             </ul>
+
+            <a
+              href="#contact"
+              className={`mt-8 block w-full text-center py-3.5 rounded-xl font-bold transition-all duration-300 ${
+                p.highlight
+                  ? 'bg-gradient-to-r from-gray-800 via-gray-900 to-amber-600 text-white shadow-xl hover:shadow-2xl hover:scale-105'
+                  : 'bg-white border-2 border-gray-300 text-gray-900 hover:border-amber-500 hover:bg-amber-50'
+              }`}
+            >
+              Get Started
+            </a>
           </div>
         ))}
+      </div>
+
+      {/* Additional CTA */}
+      <div className="mt-16 text-center bg-gradient-to-br from-gray-50 to-amber-50 rounded-2xl border-2 border-amber-200 p-8">
+        <h3 className="text-2xl font-bold text-gray-900">Need a custom solution?</h3>
+        <p className="mt-3 text-gray-700 font-medium max-w-2xl mx-auto">
+          Every business is unique. Let&apos;s build a package that fits your goals and budget perfectly.
+        </p>
+        <a
+          href="#contact"
+          className="mt-6 inline-block bg-gradient-to-r from-gray-800 via-gray-900 to-amber-600 text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+        >
+          Contact Us for Custom Pricing
+        </a>
       </div>
     </section>
   );

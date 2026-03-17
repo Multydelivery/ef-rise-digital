@@ -18,8 +18,16 @@ export default function Contact() {
             placeholder="Email"
           />
           <input
+            className="rounded-2xl border-2 border-gray-200 bg-white px-5 py-4 text-sm text-gray-900 placeholder:text-gray-500 font-medium outline-none focus:border-amber-600 focus:ring-4 focus:ring-amber-200 transition-all"
+            placeholder="Business name"
+          />
+          <input
+            className="rounded-2xl border-2 border-gray-200 bg-white px-5 py-4 text-sm text-gray-900 placeholder:text-gray-500 font-medium outline-none focus:border-amber-600 focus:ring-4 focus:ring-amber-200 transition-all"
+            placeholder="City"
+          />
+          <input
             className="rounded-2xl border-2 border-gray-200 bg-white px-5 py-4 text-sm text-gray-900 placeholder:text-gray-500 font-medium outline-none focus:border-amber-600 focus:ring-4 focus:ring-amber-200 transition-all md:col-span-2"
-            placeholder="Business name + city"
+            placeholder="Website (optional)"
           />
           <textarea
             className="min-h-30 rounded-2xl border-2 border-gray-200 bg-white px-5 py-4 text-sm text-gray-900 placeholder:text-gray-500 font-medium outline-none focus:border-amber-600 focus:ring-4 focus:ring-amber-200 transition-all md:col-span-2"

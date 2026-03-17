@@ -1,6 +1,6 @@
 const services = [
   {
-    title: "Web Design (Next.js)",
+    title: "Web Design",
     desc: "Fast, mobile-first websites that look premium and convert visitors into customers.",
     icon: "🚀",
     features: [
