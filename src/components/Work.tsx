@@ -21,7 +21,7 @@ const projects: Project[] = [
     category: 'Web Design',
     description: 'Modern website with online ordering system and menu management for a popular local restaurant.',
     image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop',
-    link: '#',
+    link: 'https://bella-italia-restaurant-two.vercel.app/',
     tags: ['Next.js', 'E-commerce', 'SEO'],
   },
   {
