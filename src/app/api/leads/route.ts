@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-// import { getDatabase } from '@/lib/mongodb'; // Temporarily disabled for testing
 
 // GET all leads (for admin dashboard)
 // TODO: Add authentication before production use
