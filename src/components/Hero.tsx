@@ -16,8 +16,7 @@ export default function Hero() {
         className="object-cover"
       />
 
-      {/* Overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/50 to-white/40" />
+      {/* No overlay - full vivid image */}
       
 
       {/* Vivid background orbs (on top of the overlay) */}
@@ -64,39 +63,41 @@ export default function Hero() {
 
       <div className="relative mx-auto max-w-6xl px-4 pt-32 pb-20 md:pt-40 md:pb-32">
         <motion.div 
-          className="inline-flex items-center gap-2 rounded-full border-2 border-gray-300 bg-white/90 backdrop-blur-sm px-4 py-2 text-xs font-bold text-gray-900 shadow-lg shadow-gray-900/20"
+          className="inline-flex items-center gap-2 rounded-full border-2 border-gray-400 bg-white backdrop-blur-md px-5 py-2.5 text-sm font-bold text-gray-900 shadow-xl shadow-gray-900/20"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-pulse" />
+          <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 animate-pulse shadow-lg shadow-green-400/50" />
           AI + Web + Google + Social Growth
         </motion.div>
 
         <motion.h1 
-          className="mt-8 text-5xl font-black leading-tight text-gray-900 md:text-7xl lg:text-8xl"
+          className="mt-8 text-4xl font-black leading-tight text-white sm:text-5xl md:text-7xl lg:text-8xl"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          style={{ 
+            textShadow: '3px 3px 10px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 0, 0, 0.7), -2px -2px 0 rgba(0, 0, 0, 0.5)'
+          }}
         >
           Make your business{" "}
-          <span className="bg-gradient-to-r from-gray-800 via-gray-900 to-amber-600 bg-clip-text text-transparent">
+          <span className="inline-block px-2 py-1 sm:px-4 sm:py-2 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-500 text-white rounded-lg sm:rounded-xl" style={{ textShadow: '2px 2px 6px rgba(0, 0, 0, 0.8)' }}>
             impossible
           </span>{" "}
           to miss.
         </motion.h1>
 
-        <motion.p 
-          className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-900 md:text-xl font-bold"
+        {/* <motion.p 
+          className="mt-8 max-w-2xl text-lg leading-relaxed md:text-xl font-semibold bg-white backdrop-blur-md px-7 py-5 rounded-2xl border-2 border-gray-300 shadow-2xl text-gray-800"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          style={{ textShadow: '0 2px 4px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.8)' }}
         >
           E&F Rise Digital helps local businesses get more customers with modern websites, Google
           Business Profile optimization, and high-performing social content — powered by automation
           and AI.
-        </motion.p>
+        </motion.p> */}
 
         <motion.div 
           className="mt-10 flex flex-col gap-4 sm:flex-row"
@@ -106,14 +107,14 @@ export default function Hero() {
         >
           <Link
             href="#contact"
-            className="group rounded-2xl bg-gradient-to-r from-gray-800 via-gray-900 to-amber-600 px-8 py-4 text-center text-base font-bold text-white shadow-2xl shadow-gray-900/50 hover:shadow-amber-600/50 transition-all duration-300 hover:scale-105"
+            className="group rounded-2xl bg-gradient-to-r from-gray-900 via-gray-800 to-amber-600 px-8 py-4 text-center text-base font-bold text-white shadow-2xl shadow-gray-900/60 hover:shadow-amber-600/60 transition-all duration-300 hover:scale-105 hover:from-gray-800 hover:via-amber-700 hover:to-amber-500 focus:outline-none focus:ring-4 focus:ring-amber-500/50"
           >
             Get a Free Visibility Audit
           </Link>
 
           <Link
             href="#services"
-            className="rounded-2xl border-2 border-gray-300 bg-white/80 backdrop-blur-sm px-8 py-4 text-center text-base font-bold text-gray-900 hover:bg-gray-50 hover:border-amber-500 transition-all duration-300"
+            className="rounded-2xl border-2 border-gray-400 bg-white backdrop-blur-md px-8 py-4 text-center text-base font-bold text-gray-900 hover:bg-gray-50 hover:border-amber-500 hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-400/50"
           >
             See Services
           </Link>
@@ -148,16 +149,16 @@ function Stat({
 }) {
   return (
     <motion.div 
-      className="group rounded-2xl border-2 border-gray-200 bg-white/90 backdrop-blur-sm p-5 shadow-lg hover:shadow-2xl hover:border-amber-500 transition-all duration-300 hover:scale-105"
+      className="group rounded-2xl border-2 border-gray-300 bg-white backdrop-blur-md p-6 shadow-xl hover:shadow-2xl hover:border-amber-500 transition-all duration-300 hover:scale-105"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay: 0.8 + delay, ease: "easeOut" }}
       whileHover={{ y: -5 }}
     >
-      <div className={`text-lg font-bold bg-gradient-to-r ${color} bg-clip-text text-transparent`}>
+      <div className={`text-lg font-bold bg-gradient-to-r ${color} bg-clip-text text-transparent drop-shadow-sm`}>
         {value}
       </div>
-      <div className="mt-1.5 text-xs font-semibold text-gray-600">{label}</div>
+      <div className="mt-2 text-xs font-semibold text-gray-700 uppercase tracking-wider">{label}</div>
     </motion.div>
   );
 }
