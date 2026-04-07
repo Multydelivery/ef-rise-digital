@@ -4,161 +4,162 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  show: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.75,
+      delay,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+};
+
+const orbFloat = (duration = 10, delay = 0) => ({
+  scale: [1, 1.12, 1],
+  opacity: [0.18, 0.28, 0.18],
+  y: [0, -12, 0],
+  transition: {
+    duration,
+    delay,
+    repeat: Infinity,
+    ease: "easeInOut",
+  },
+});
+
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative isolate flex min-h-screen items-center overflow-hidden bg-black text-white">
       {/* Background image */}
       <Image
         src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
         alt="Modern skyscraper rising - E&F Rise Digital"
         fill
         priority
-        className="object-cover"
+        className="object-cover object-center"
       />
 
-      {/* No overlay - full vivid image */}
-      
+      {/* Overlays */}
+      <div className="absolute inset-0 bg-black/55" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/30" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(245,158,11,0.18),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.08),transparent_25%)]" />
 
-      {/* Vivid background orbs (on top of the overlay) */}
+      {/* Ambient orbs */}
       <div className="pointer-events-none absolute inset-0">
-        <motion.div 
-          className="absolute -left-24 -top-24 h-96 w-96 rounded-full bg-gray-400/30 blur-3xl"
-          animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3]
-          }}
-          transition={{ 
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
+        <motion.div
+          className="absolute -left-24 top-8 h-80 w-80 rounded-full bg-white/10 blur-3xl"
+          animate={orbFloat(11, 0)}
         />
-        <motion.div 
-          className="absolute -right-24 top-32 h-96 w-96 rounded-full bg-amber-400/30 blur-3xl"
-          animate={{ 
-            scale: [1, 1.3, 1],
-            opacity: [0.3, 0.4, 0.3]
-          }}
-          transition={{ 
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
-          }}
+        <motion.div
+          className="absolute right-0 top-24 h-96 w-96 rounded-full bg-amber-400/20 blur-3xl"
+          animate={orbFloat(13, 0.8)}
         />
-        <motion.div 
-          className="absolute left-1/2 bottom-0 h-96 w-96 -translate-x-1/2 rounded-full bg-gray-400/20 blur-3xl"
-          animate={{ 
-            scale: [1, 1.15, 1],
-            opacity: [0.2, 0.3, 0.2]
-          }}
-          transition={{ 
-            duration: 9,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
-          }}
+        <motion.div
+          className="absolute left-1/2 bottom-0 h-72 w-72 -translate-x-1/2 rounded-full bg-orange-500/10 blur-3xl"
+          animate={orbFloat(12, 1.2)}
         />
       </div>
 
-      <div className="relative mx-auto max-w-6xl px-4 pt-32 pb-20 md:pt-40 md:pb-32">
-        <motion.div 
-          className="inline-flex items-center gap-2 rounded-full border-2 border-gray-400 bg-white backdrop-blur-md px-5 py-2.5 text-sm font-bold text-gray-900 shadow-xl shadow-gray-900/20"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 animate-pulse shadow-lg shadow-green-400/50" />
-          AI + Web + Google + Social Growth
-        </motion.div>
+      {/* Grid texture */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:64px_64px]" />
 
-        <motion.h1 
-          className="mt-8 text-4xl font-black leading-tight text-white sm:text-5xl md:text-7xl lg:text-8xl"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          style={{ 
-            textShadow: '3px 3px 10px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 0, 0, 0.7), -2px -2px 0 rgba(0, 0, 0, 0.5)'
-          }}
-        >
-          Make your business{" "}
-          <span className="inline-block px-2 py-1 sm:px-4 sm:py-2 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-500 text-white rounded-lg sm:rounded-xl" style={{ textShadow: '2px 2px 6px rgba(0, 0, 0, 0.8)' }}>
-            impossible
-          </span>{" "}
-          to miss.
-        </motion.h1>
-
-        {/* <motion.p 
-          className="mt-8 max-w-2xl text-lg leading-relaxed md:text-xl font-semibold bg-white backdrop-blur-md px-7 py-5 rounded-2xl border-2 border-gray-300 shadow-2xl text-gray-800"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-        >
-          E&F Rise Digital helps local businesses get more customers with modern websites, Google
-          Business Profile optimization, and high-performing social content — powered by automation
-          and AI.
-        </motion.p> */}
-
-        <motion.div 
-          className="mt-10 flex flex-col gap-4 sm:flex-row"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-        >
-          <Link
-            href="#contact"
-            className="group rounded-2xl bg-gradient-to-r from-gray-900 via-gray-800 to-amber-600 px-8 py-4 text-center text-base font-bold text-white shadow-2xl shadow-gray-900/60 hover:shadow-amber-600/60 transition-all duration-300 hover:scale-105 hover:from-gray-800 hover:via-amber-700 hover:to-amber-500 focus:outline-none focus:ring-4 focus:ring-amber-500/50"
+      <div className="relative mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
+        <div className="max-w-4xl">
+          <motion.div
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-md shadow-lg shadow-black/20"
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            custom={0}
           >
-            Get a Free Visibility Audit
-          </Link>
+            <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.8)]" />
+            AI + Web + Google + Social Growth
+          </motion.div>
 
-          <Link
-            href="#services"
-            className="rounded-2xl border-2 border-gray-400 bg-white backdrop-blur-md px-8 py-4 text-center text-base font-bold text-gray-900 hover:bg-gray-50 hover:border-amber-500 hover:shadow-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-400/50"
+          <motion.h1
+            className="mt-7 max-w-5xl text-4xl font-black leading-[0.95] tracking-tight sm:text-5xl md:text-7xl lg:text-8xl"
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            custom={0.15}
           >
-            See Services
-          </Link>
-        </motion.div>
+            Make your business{" "}
+            <span className="bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 bg-clip-text text-transparent">
+              impossible
+            </span>{" "}
+            to miss.
+          </motion.h1>
 
-        <motion.div 
-          className="mt-12 grid grid-cols-2 gap-5 sm:grid-cols-4"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-        >
-          <Stat label="Websites" value="Fast + Modern" color="from-gray-700 to-amber-500" delay={0} />
-          <Stat label="Google Maps" value="Local SEO" color="from-gray-700 to-gray-600" delay={0.1} />
-          <Stat label="Socials" value="Content + Growth" color="from-amber-500 to-amber-600" delay={0.2} />
-          <Stat label="Automation" value="AI Tools" color="from-gray-600 to-gray-800" delay={0.3} />
-        </motion.div>
+          <motion.p
+            className="mt-6 max-w-2xl text-base leading-7 text-white/75 sm:text-lg sm:leading-8 md:text-xl"
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            custom={0.3}
+          >
+            E&amp;F Rise Digital helps local businesses grow with premium
+            websites, stronger Google visibility, and content systems designed
+            to turn attention into leads.
+          </motion.p>
+
+          <motion.div
+            className="mt-10 flex flex-col gap-4 sm:flex-row"
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            custom={0.45}
+          >
+            <Link
+              href="#contact"
+              className="group inline-flex items-center justify-center rounded-2xl bg-amber-400 px-8 py-4 text-base font-semibold text-black shadow-xl shadow-amber-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-300 focus:outline-none focus:ring-4 focus:ring-amber-300/40"
+            >
+              Get a Free Visibility Audit
+              <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+            </Link>
+
+            <Link
+              href="#services"
+              className="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/10 px-8 py-4 text-base font-semibold text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/15 focus:outline-none focus:ring-4 focus:ring-white/20"
+            >
+              See Services
+            </Link>
+          </motion.div>
+
+          <motion.div
+            className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-4"
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            custom={0.6}
+          >
+            <Stat label="Websites" value="Fast + Modern" />
+            <Stat label="Google Maps" value="Local SEO" />
+            <Stat label="Socials" value="Content + Growth" />
+            <Stat label="Automation" value="AI Tools" />
+          </motion.div>
+        </div>
       </div>
+
+      {/* Bottom fade */}
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent" />
     </section>
   );
 }
 
-function Stat({
-  label,
-  value,
-  color,
-  delay,
-}: {
-  label: string;
-  value: string;
-  color: string;
-  delay: number;
-}) {
+function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <motion.div 
-      className="group rounded-2xl border-2 border-gray-300 bg-white backdrop-blur-md p-6 shadow-xl hover:shadow-2xl hover:border-amber-500 transition-all duration-300 hover:scale-105"
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, delay: 0.8 + delay, ease: "easeOut" }}
-      whileHover={{ y: -5 }}
+    <motion.div
+      className="group rounded-2xl border border-white/10 bg-white/10 p-5 backdrop-blur-xl shadow-lg shadow-black/20 transition-all duration-300 hover:-translate-y-1 hover:border-amber-400/40 hover:bg-white/15"
+      whileHover={{ y: -4 }}
     >
-      <div className={`text-lg font-bold bg-gradient-to-r ${color} bg-clip-text text-transparent drop-shadow-sm`}>
-        {value}
+      <div className="text-base font-semibold text-white sm:text-lg">{value}</div>
+      <div className="mt-2 text-[11px] font-medium uppercase tracking-[0.22em] text-white/55">
+        {label}
       </div>
-      <div className="mt-2 text-xs font-semibold text-gray-700 uppercase tracking-wider">{label}</div>
     </motion.div>
   );
 }

@@ -162,22 +162,20 @@ export default function ChatWidget() {
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0, opacity: 0 }}
-                className="h-12 w-12 sm:h-14 sm:w-14 flex items-center justify-center"
+                className="h-12 w-12 sm:h-14 sm:w-14 flex items-center justify-center relative rounded-full overflow-hidden ring-2 ring-white/30"
               >
-                {/* Agent Avatar SVG */}
-                <svg viewBox="0 0 64 64" fill="none" className="h-10 w-10 sm:h-12 sm:w-12">
-                  {/* Head */}
-                  <circle cx="32" cy="28" r="16" fill="#FFF" />
-                  {/* Face details */}
-                  <circle cx="27" cy="26" r="2.5" fill="#1F2937" />
-                  <circle cx="37" cy="26" r="2.5" fill="#1F2937" />
-                  {/* Smile */}
-                  <path d="M 24 32 Q 32 36 40 32" stroke="#1F2937" strokeWidth="2" strokeLinecap="round" fill="none"/>
-                  {/* Body */}
-                  <path d="M 20 42 Q 20 40 22 40 L 42 40 Q 44 40 44 42 L 44 48 Q 44 50 42 50 L 22 50 Q 20 50 20 48 Z" fill="#FFF"/>
-                  {/* Tie */}
-                  <path d="M 32 40 L 30 48 L 32 52 L 34 48 Z" fill="#F59E0B"/>
-                </svg>
+                {/* Professional Agent Photo */}
+                <img
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face"
+                  alt="Customer Support Agent"
+                  className="h-full w-full object-cover"
+                />
+                {/* Online status dot */}
+                <motion.div
+                  className="absolute bottom-0 right-0 h-3 w-3 sm:h-3.5 sm:w-3.5 rounded-full bg-green-500 border-2 border-white"
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
               </motion.div>
             )}
           </AnimatePresence>
@@ -226,29 +224,17 @@ export default function ChatWidget() {
               
               {/* Agent Avatar */}
               <motion.div 
-                className="relative flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white shadow-lg ring-4 ring-white/30"
+                className="relative flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white shadow-lg ring-4 ring-white/30 overflow-hidden"
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: 'spring', delay: 0.2 }}
               >
-                {/* Professional Agent Avatar SVG */}
-                <svg viewBox="0 0 64 64" fill="none" className="h-10 w-10 sm:h-12 sm:w-12">
-                  {/* Head */}
-                  <circle cx="32" cy="26" r="14" fill="#F59E0B" />
-                  {/* Face */}
-                  <circle cx="32" cy="28" r="12" fill="#FEF3C7" />
-                  {/* Eyes */}
-                  <circle cx="28" cy="27" r="2" fill="#1F2937" />
-                  <circle cx="36" cy="27" r="2" fill="#1F2937" />
-                  {/* Smile */}
-                  <path d="M 26 31 Q 32 35 38 31" stroke="#1F2937" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-                  {/* Body/Shoulders */}
-                  <ellipse cx="32" cy="50" rx="18" ry="12" fill="#F59E0B"/>
-                  <ellipse cx="32" cy="48" rx="16" ry="10" fill="#FCD34D"/>
-                  {/* Headset */}
-                  <path d="M 22 24 Q 22 18 26 18" stroke="#1F2937" strokeWidth="2" strokeLinecap="round" fill="none"/>
-                  <circle cx="21" cy="26" r="3" fill="#1F2937" />
-                </svg>
+                {/* Professional Agent Photo */}
+                <img
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face"
+                  alt="E&F Rise Digital Support Agent"
+                  className="h-full w-full object-cover"
+                />
                 
                 {/* Online Status Indicator */}
                 <motion.div
@@ -304,12 +290,12 @@ export default function ChatWidget() {
                 >
                   {/* Assistant Avatar */}
                   {msg.role === 'assistant' && (
-                    <div className="flex-shrink-0 h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-md">
-                      <svg viewBox="0 0 24 24" fill="white" className="h-4 w-4 sm:h-5 sm:w-5">
-                        <circle cx="9" cy="9" r="1.5" />
-                        <circle cx="15" cy="9" r="1.5" />
-                        <path d="M 8 12 Q 12 14 16 12" stroke="white" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-                      </svg>
+                    <div className="flex-shrink-0 h-7 w-7 sm:h-8 sm:w-8 rounded-full overflow-hidden shadow-md ring-2 ring-amber-200">
+                      <img
+                        src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face"
+                        alt="Agent"
+                        className="h-full w-full object-cover"
+                      />
                     </div>
                   )}
                   
@@ -331,12 +317,12 @@ export default function ChatWidget() {
                   animate={{ opacity: 1 }}
                   className="flex justify-start gap-2"
                 >
-                  <div className="flex-shrink-0 h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-md">
-                    <svg viewBox="0 0 24 24" fill="white" className="h-4 w-4 sm:h-5 sm:w-5">
-                      <circle cx="9" cy="9" r="1.5" />
-                      <circle cx="15" cy="9" r="1.5" />
-                      <path d="M 8 12 Q 12 14 16 12" stroke="white" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-                    </svg>
+                  <div className="flex-shrink-0 h-7 w-7 sm:h-8 sm:w-8 rounded-full overflow-hidden shadow-md ring-2 ring-amber-200">
+                    <img
+                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face"
+                      alt="Agent"
+                      className="h-full w-full object-cover"
+                    />
                   </div>
                   <div className="rounded-2xl border-2 border-amber-200 bg-white px-4 sm:px-5 py-2 sm:py-3 shadow-md">
                     <div className="flex space-x-2">

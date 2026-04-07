@@ -2,15 +2,22 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Poppins } from "next/font/google";
 
-const poppins = Poppins({ 
+const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
+
+const navLinks = [
+  { name: "Services", href: "#services" },
+  { name: "Work", href: "#work" },
+  { name: "Pricing", href: "#pricing" },
+  { name: "Contact", href: "#contact" },
+];
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,15 +25,12 @@ export default function Navbar() {
   const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
@@ -34,153 +38,189 @@ export default function Navbar() {
       }
     };
 
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMenuOpen(false);
+    };
+
     if (isMenuOpen) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleEscape);
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "";
     };
   }, [isMenuOpen]);
 
-  const navLinks = [
-    { name: "Services", href: "#services" },
-    { name: "Work", href: "#work" },
-    { name: "Pricing", href: "#pricing" },
-    { name: "Contact", href: "#contact" },
-  ];
-
   return (
-    <motion.header 
-      ref={navRef}
-      className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
-        isScrolled 
-          ? "bg-black/95 border-white/20 shadow-lg" 
-          : "bg-transparent border-white/10"
-      }`}
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 sm:h-20 items-center justify-between">
-          
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-white/20 shadow-lg shadow-black/20"
-            >
-              <Image
-                src="/enfrisedigitalrocketearth.png"
-                alt="E&F Rise Digital"
-                width={120}
-                height={120}
-                className="w-full h-full object-cover"
-                priority
-                style={{ mixBlendMode: "normal" }}
-              />
-            </motion.div>
-            <span className={`hidden sm:block text-base sm:text-lg md:text-xl font-bold tracking-tight transition-colors duration-300 ${isScrolled ? 'text-white' : 'text-gray-900'} ${poppins.className}`}>
-              E&F Rise Digital
-            </span>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-200 ${isScrolled ? 'text-white/90 hover:bg-white/5' : 'text-gray-900 hover:bg-gray-100'} hover:text-gray-700 ${poppins.className}`}
-              >
-                {link.name}
-              </Link>
-            ))}
-            
-            <Link
-              href="#contact"
-              className={`ml-3 px-6 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-semibold rounded-lg shadow-lg shadow-amber-500/30 hover:shadow-amber-400/40 transition-all duration-300 hover:-translate-y-0.5 ${poppins.className}`}
-            >
-              Start Now
-            </Link>
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`md:hidden relative w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${isScrolled ? 'hover:bg-white/10' : 'hover:bg-gray-900/10'}`}
-            aria-label="Toggle menu"
+    <>
+      <motion.header
+        ref={navRef}
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed inset-x-0 top-0 z-50"
+      >
+        <div className="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
+          <div
+            className={`relative flex h-16 items-center justify-between rounded-2xl border px-4 shadow-2xl backdrop-blur-2xl transition-all duration-300 sm:h-[72px] sm:px-6 ${
+              isScrolled
+                ? "border-white/20 bg-black/80 shadow-black/40"
+                : "border-white/15 bg-black/40 shadow-black/20"
+            }`}
           >
-            <div className="w-6 flex flex-col items-center justify-center gap-1.5">
-              <motion.span
-                className={`w-full h-0.5 rounded-full transition-colors duration-300 ${isScrolled ? 'bg-white' : 'bg-gray-900'}`}
-                animate={isMenuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
-                transition={{ duration: 0.2 }}
-              />
-              <motion.span
-                className={`w-full h-0.5 rounded-full transition-colors duration-300 ${isScrolled ? 'bg-white' : 'bg-gray-900'}`}
-                animate={isMenuOpen ? { opacity: 0, width: 0 } : { opacity: 1, width: "100%" }}
-                transition={{ duration: 0.2 }}
-              />
-              <motion.span
-                className={`w-full h-0.5 rounded-full transition-colors duration-300 ${isScrolled ? 'bg-white' : 'bg-gray-900'}`}
-                animate={isMenuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
-                transition={{ duration: 0.2 }}
-              />
-            </div>
-          </button>
-        </div>
-      </div>
+            {/* Enhanced glow effect */}
+            <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_top_left,rgba(245,158,11,0.15),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.08),transparent_25%)]" />
+            <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
-      {/* Mobile Menu */}
+            {/* Logo */}
+            <Link href="/" className="relative z-10 flex items-center gap-3 group">
+              <motion.div
+                whileHover={{ scale: 1.05, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className="relative h-11 w-11 overflow-hidden rounded-full border-2 border-white/20 bg-gradient-to-br from-white/10 to-white/5 shadow-xl shadow-amber-500/10 sm:h-12 sm:w-12 group-hover:border-amber-400/40 group-hover:shadow-amber-500/20 transition-all duration-300"
+              >
+                <Image
+                  src="/enfrisedigitalrocketearth.png"
+                  alt="E&F Rise Digital"
+                  fill
+                  priority
+                  className="object-cover"
+                />
+              </motion.div>
+
+              <div className="hidden sm:block">
+                <span
+                  className={`block text-lg font-bold tracking-tight text-white group-hover:text-amber-300 transition-colors duration-300 ${poppins.className}`}
+                >
+                  E&amp;F Rise Digital
+                </span>
+                <span className="block text-[11px] uppercase tracking-[0.25em] text-white/50 font-medium group-hover:text-white/70 transition-colors duration-300">
+                  Web • Google • Social • AI
+                </span>
+              </div>
+            </Link>
+
+            {/* Desktop Nav */}
+            <nav className="relative z-10 hidden items-center gap-1.5 md:flex">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`group relative rounded-xl px-4 py-2.5 text-sm font-semibold text-white/70 transition-all duration-300 hover:bg-white/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 ${poppins.className}`}
+                >
+                  <span className="relative z-10">{link.name}</span>
+                  <span className="absolute inset-0 rounded-xl bg-gradient-to-br from-amber-400/0 to-amber-500/0 opacity-0 transition-opacity duration-300 group-hover:from-amber-400/5 group-hover:to-amber-500/5 group-hover:opacity-100" />
+                </Link>
+              ))}
+
+              <Link
+                href="#contact"
+                className={`group ml-3 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 px-6 py-2.5 text-sm font-bold text-white shadow-xl shadow-amber-500/30 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-amber-500/40 focus:outline-none focus:ring-4 focus:ring-amber-400/50 ${poppins.className}`}
+              >
+                <span className="relative z-10">Start Now</span>
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-300 to-orange-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              </Link>
+            </nav>
+
+            {/* Mobile button */}
+            <button
+              onClick={() => setIsMenuOpen((prev) => !prev)}
+              aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
+              className="relative z-10 inline-flex h-11 w-11 items-center justify-center rounded-xl border-2 border-white/20 bg-white/10 text-white transition-all duration-300 hover:bg-white/15 hover:border-amber-400/40 active:scale-95 focus:outline-none focus:ring-2 focus:ring-amber-400/50 md:hidden"
+            >
+              <div className="relative h-5 w-5">
+                <motion.span
+                  className="absolute left-0 top-1 h-0.5 w-5 rounded-full bg-white"
+                  animate={isMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                />
+                <motion.span
+                  className="absolute left-0 top-[9px] h-0.5 w-5 rounded-full bg-white"
+                  animate={isMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                />
+                <motion.span
+                  className="absolute left-0 top-[17px] h-0.5 w-5 rounded-full bg-white"
+                  animate={isMenuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                />
+              </div>
+            </button>
+          </div>
+        </div>
+      </motion.header>
+
+      {/* Mobile overlay */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden border-t border-amber-500/20 bg-black/95 backdrop-blur-lg"
-          >
-            <nav className="px-4 py-6 space-y-2">
-              {navLinks.map((link, index) => (
+          <>
+            <motion.div
+              className="fixed inset-0 z-40 bg-black/55 backdrop-blur-sm md:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed inset-x-0 top-[88px] z-50 mx-4 overflow-hidden rounded-2xl border-2 border-white/20 bg-black/95 shadow-2xl shadow-black/60 backdrop-blur-2xl md:hidden"
+            >
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(245,158,11,0.18),transparent_35%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.08),transparent_22%)]" />
+              <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-amber-400/30 to-transparent" />
+
+              <nav className="relative space-y-2 p-5">
+                {navLinks.map((link, index) => (
+                  <motion.div
+                    key={link.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.08, type: "spring", stiffness: 300, damping: 25 }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={`group relative block overflow-hidden rounded-xl px-5 py-4 text-base font-semibold text-white/75 transition-all duration-300 hover:bg-gradient-to-r hover:from-white/10 hover:to-white/5 hover:text-white active:scale-[0.98] ${poppins.className}`}
+                    >
+                      <span className="relative z-10 flex items-center justify-between">
+                        {link.name}
+                        <svg className="h-4 w-4 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </span>
+                      <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-amber-500/10 to-transparent transition-transform duration-300 group-hover:translate-x-0" />
+                    </Link>
+                  </motion.div>
+                ))}
+
                 <motion.div
-                  key={link.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.32, type: "spring", stiffness: 300, damping: 25 }}
+                  className="pt-3"
                 >
                   <Link
-                    href={link.href}
+                    href="#contact"
                     onClick={() => setIsMenuOpen(false)}
-                    className={`block px-4 py-3 text-base font-medium text-white/90 hover:text-amber-400 hover:bg-white/5 rounded-lg transition-all ${poppins.className}`}
+                    className={`group relative inline-flex w-full items-center justify-center overflow-hidden rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 px-6 py-4 text-base font-bold text-white shadow-xl shadow-amber-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-500/40 active:scale-[0.98] ${poppins.className}`}
                   >
-                    {link.name}
+                    <span className="relative z-10">Start Now →</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-amber-300 to-orange-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   </Link>
                 </motion.div>
-              ))}
-              
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="pt-4"
-              >
-                <Link
-                  href="#contact"
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`block w-full px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-semibold text-center rounded-lg shadow-lg shadow-amber-500/30 transition-all ${poppins.className}`}
-                >
-                  Start Now
-                </Link>
-              </motion.div>
-            </nav>
-          </motion.div>
+              </nav>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
-    </motion.header>
+    </>
   );
 }
