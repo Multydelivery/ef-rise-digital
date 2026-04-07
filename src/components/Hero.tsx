@@ -12,7 +12,7 @@ const fadeUp = {
     transition: {
       duration: 0.75,
       delay,
-      ease: [0.22, 1, 0.36, 1],
+      ease: [0.22, 1, 0.36, 1] as const,
     },
   }),
 };
@@ -25,7 +25,7 @@ const orbFloat = (duration = 10, delay = 0) => ({
     duration,
     delay,
     repeat: Infinity,
-    ease: "easeInOut",
+    ease: "easeInOut" as const,
   },
 });
 
