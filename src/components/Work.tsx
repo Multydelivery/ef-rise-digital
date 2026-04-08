@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const fadeUp = {
@@ -20,8 +20,13 @@ const fadeUp = {
 };
 
 export default function Work() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [activeCategory, setActiveCategory] = useState(t.work.filterAll);
+
+  // Reset filter to "All" when language changes
+  useEffect(() => {
+    setActiveCategory(t.work.filterAll);
+  }, [language, t.work.filterAll]);
 
   // Use translations for projects
   const projects = useMemo(() => {
