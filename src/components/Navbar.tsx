@@ -29,10 +29,24 @@ export default function Navbar() {
   ];
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    let timeoutId: NodeJS.Timeout;
+    
+    const handleScroll = () => {
+      // Throttle scroll events for better performance
+      if (timeoutId) return;
+      
+      timeoutId = setTimeout(() => {
+        setIsScrolled(window.scrollY > 24);
+        timeoutId = null as any;
+      }, 100);
+    };
+    
     handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, []);
 
   useEffect(() => {

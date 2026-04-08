@@ -61,7 +61,7 @@ export default function Work() {
     t.work.categories.webDesign,
     t.work.categories.digitalMarketing,
     t.work.categories.mobileApp
-  ], [t.work]);
+  ], [t.work.filterAll, t.work.categories.webDesign, t.work.categories.digitalMarketing, t.work.categories.mobileApp]);
 
   const filteredProjects = useMemo(() => {
     if (activeCategory === t.work.filterAll) return projects;
