@@ -5,6 +5,9 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Poppins } from "next/font/google";
+import { useLanguage } from "@/contexts/LanguageContext";
+import USFlag from "@/components/flags/USFlag";
+import SpainFlag from "@/components/flags/SpainFlag";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -12,17 +15,18 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const navLinks = [
-  { name: "Services", href: "#services" },
-  { name: "Work", href: "#work" },
-  { name: "Pricing", href: "#pricing" },
-  { name: "Contact", href: "#contact" },
-];
-
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const { language, setLanguage, t } = useLanguage();
+
+  const navLinks = [
+    { name: t.nav.services, href: "#services" },
+    { name: t.nav.work, href: "#work" },
+    { name: t.nav.pricing, href: "#pricing" },
+    { name: t.nav.contact, href: "#contact" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 24);
@@ -100,7 +104,7 @@ export default function Navbar() {
                   E&amp;F Rise Digital
                 </span>
                 <span className="block text-[11px] uppercase tracking-[0.25em] text-white/50 font-medium group-hover:text-white/70 transition-colors duration-300">
-                  Web • Google • Social • AI
+                  {t.hero.title}
                 </span>
               </div>
             </Link>
@@ -118,40 +122,90 @@ export default function Navbar() {
                 </Link>
               ))}
 
+              {/* Language Switcher - Desktop */}
+              <div className="relative z-20 ml-2 flex items-center gap-1.5 rounded-xl border border-white/20 bg-white/5 p-1">
+                <button
+                  onClick={() => setLanguage("en")}
+                  aria-label="Switch to English"
+                  className={`group relative flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1.5 transition-all duration-300 hover:scale-105 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 ${
+                    language === "en" ? "ring-2 ring-amber-400/70 scale-105 bg-white/10" : "opacity-70 hover:opacity-100"
+                  }`}
+                >
+                  <USFlag className="h-5 w-7 rounded shadow-sm" />
+                  <span className="pointer-events-none text-xs font-semibold text-white">EN</span>
+                </button>
+                <button
+                  onClick={() => setLanguage("es")}
+                  aria-label="Cambiar a Español"
+                  className={`group relative flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1.5 transition-all duration-300 hover:scale-105 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 ${
+                    language === "es" ? "ring-2 ring-amber-400/70 scale-105 bg-white/10" : "opacity-70 hover:opacity-100"
+                  }`}
+                >
+                  <SpainFlag className="h-5 w-7 rounded shadow-sm" />
+                  <span className="pointer-events-none text-xs font-semibold text-white">ES</span>
+                </button>
+              </div>
+
               <Link
                 href="#contact"
                 className={`group ml-3 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 px-6 py-2.5 text-sm font-bold text-white shadow-xl shadow-amber-500/30 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-amber-500/40 focus:outline-none focus:ring-4 focus:ring-amber-400/50 ${poppins.className}`}
               >
-                <span className="relative z-10">Start Now</span>
+                <span className="relative z-10">{t.nav.startNow}</span>
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-300 to-orange-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </Link>
             </nav>
 
-            {/* Mobile button */}
-            <button
-              onClick={() => setIsMenuOpen((prev) => !prev)}
-              aria-label="Toggle menu"
-              aria-expanded={isMenuOpen}
-              className="relative z-10 inline-flex h-11 w-11 items-center justify-center rounded-xl border-2 border-white/20 bg-white/10 text-white transition-all duration-300 hover:bg-white/15 hover:border-amber-400/40 active:scale-95 focus:outline-none focus:ring-2 focus:ring-amber-400/50 md:hidden"
-            >
-              <div className="relative h-5 w-5">
-                <motion.span
-                  className="absolute left-0 top-1 h-0.5 w-5 rounded-full bg-white"
-                  animate={isMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-                  transition={{ duration: 0.2 }}
-                />
-                <motion.span
-                  className="absolute left-0 top-[9px] h-0.5 w-5 rounded-full bg-white"
-                  animate={isMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-                  transition={{ duration: 0.2 }}
-                />
-                <motion.span
-                  className="absolute left-0 top-[17px] h-0.5 w-5 rounded-full bg-white"
-                  animate={isMenuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
-                  transition={{ duration: 0.2 }}
-                />
+            {/* Mobile button and Language Switcher */}
+            <div className="relative z-10 flex items-center gap-2 md:hidden">
+              {/* Language Switcher - Mobile */}
+              <div className="flex items-center gap-1 rounded-xl border border-white/20 bg-white/5 p-1">
+                <button
+                  onClick={() => setLanguage("en")}
+                  aria-label="Switch to English"
+                  className={`flex cursor-pointer items-center gap-1 rounded-lg px-2 py-1 transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 ${
+                    language === "en" ? "ring-2 ring-amber-400/70 scale-105 bg-white/10" : "opacity-70"
+                  }`}
+                >
+                  <USFlag className="h-4 w-6 rounded shadow-sm" />
+                  <span className="pointer-events-none text-[10px] font-bold text-white">EN</span>
+                </button>
+                <button
+                  onClick={() => setLanguage("es")}
+                  aria-label="Cambiar a Español"
+                  className={`flex cursor-pointer items-center gap-1 rounded-lg px-2 py-1 transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 ${
+                    language === "es" ? "ring-2 ring-amber-400/70 scale-105 bg-white/10" : "opacity-70"
+                  }`}
+                >
+                  <SpainFlag className="h-4 w-6 rounded shadow-sm" />
+                  <span className="pointer-events-none text-[10px] font-bold text-white">ES</span>
+                </button>
               </div>
-            </button>
+
+              <button
+                onClick={() => setIsMenuOpen((prev) => !prev)}
+                aria-label="Toggle menu"
+                aria-expanded={isMenuOpen}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-xl border-2 border-white/20 bg-white/10 text-white transition-all duration-300 hover:bg-white/15 hover:border-amber-400/40 active:scale-95 focus:outline-none focus:ring-2 focus:ring-amber-400/50"
+              >
+                <div className="relative h-5 w-5">
+                  <motion.span
+                    className="absolute left-0 top-1 h-0.5 w-5 rounded-full bg-white"
+                    animate={isMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                  <motion.span
+                    className="absolute left-0 top-[9px] h-0.5 w-5 rounded-full bg-white"
+                    animate={isMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                  <motion.span
+                    className="absolute left-0 top-[17px] h-0.5 w-5 rounded-full bg-white"
+                    animate={isMenuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       </motion.header>
@@ -212,7 +266,7 @@ export default function Navbar() {
                     onClick={() => setIsMenuOpen(false)}
                     className={`group relative inline-flex w-full items-center justify-center overflow-hidden rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 px-6 py-4 text-base font-bold text-white shadow-xl shadow-amber-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-500/40 active:scale-[0.98] ${poppins.className}`}
                   >
-                    <span className="relative z-10">Start Now →</span>
+                    <span className="relative z-10">{t.nav.startNow} →</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-amber-300 to-orange-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   </Link>
                 </motion.div>
