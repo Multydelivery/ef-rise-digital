@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -16,6 +17,8 @@ const fadeUp = {
 };
 
 export default function Contact() {
+  const { t } = useLanguage();
+
   return (
     <section
       id="contact"
@@ -59,16 +62,16 @@ export default function Contact() {
 
               <div className="mt-8 space-y-4">
                 <ContactPoint
-                  title="What you can ask for"
-                  text="Website improvements, local SEO, Google Business Profile setup, social media help, and automation ideas."
+                  title={t.contact.points.ask.title}
+                  text={t.contact.points.ask.text}
                 />
                 <ContactPoint
-                  title="Best for local businesses"
-                  text="Perfect if you want more calls, better visibility, and a stronger online presence without guessing what to do next."
+                  title={t.contact.points.best.title}
+                  text={t.contact.points.best.text}
                 />
                 <ContactPoint
-                  title="Fast next step"
-                  text="Once this is connected, submissions can go to email, a CRM, or your preferred lead system."
+                  title={t.contact.points.fast.title}
+                  text={t.contact.points.fast.text}
                 />
               </div>
             </div>
@@ -79,35 +82,36 @@ export default function Contact() {
 
               <form className="relative grid gap-5 md:grid-cols-2">
                 <Field
-                  label="Your name"
+                  label={t.contact.form.name}
                   name="name"
                   type="text"
-                  placeholder="John Smith"
+                  placeholder={t.contact.form.namePlaceholder}
                 />
                 <Field
-                  label="Email"
+                  label={t.contact.form.email}
                   name="email"
                   type="email"
-                  placeholder="john@email.com"
+                  placeholder={t.contact.form.emailPlaceholder}
                 />
                 <Field
-                  label="Business name"
+                  label={t.contact.form.business}
                   name="business"
                   type="text"
-                  placeholder="Your business name"
+                  placeholder={t.contact.form.businessPlaceholder}
                 />
                 <Field
-                  label="City"
+                  label={t.contact.form.city}
                   name="city"
                   type="text"
-                  placeholder="Indianapolis"
+                  placeholder={t.contact.form.cityPlaceholder}
                 />
                 <Field
-                  label="Website"
+                  label={t.contact.form.website}
                   name="website"
                   type="url"
-                  placeholder="https://yourwebsite.com"
+                  placeholder={t.contact.form.websitePlaceholder}
                   optional
+                  optionalText={t.contact.form.optional}
                   className="md:col-span-2"
                 />
 
@@ -116,14 +120,14 @@ export default function Contact() {
                     htmlFor="message"
                     className="mb-2 block text-sm font-medium text-white/75"
                   >
-                    What do you need help with?
+                    {t.contact.form.message}
                   </label>
                   <textarea
                     id="message"
                     name="message"
                     rows={5}
                     className="w-full rounded-2xl border-2 border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none backdrop-blur-md transition-all duration-300 hover:border-white/25 focus:border-amber-400/50 focus:bg-white/[0.08] focus:ring-4 focus:ring-amber-400/20 resize-none"
-                    placeholder="Website, Google Business Profile, local SEO, social media, ads, automation..."
+                    placeholder={t.contact.form.messagePlaceholder}
                   />
                 </div>
 
@@ -131,7 +135,7 @@ export default function Contact() {
                   type="submit"
                   className="group/submit relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 px-8 py-4 text-base font-bold text-white shadow-2xl shadow-amber-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-500/40 hover:-translate-y-1 hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-amber-400/50 active:scale-[0.98] md:col-span-2"
                 >
-                  <span className="relative z-10">Request Audit</span>
+                  <span className="relative z-10">{t.contact.form.submit}</span>
                   <svg
                     className="relative z-10 h-5 w-5 transition-transform duration-300 group-hover/submit:translate-x-1"
                     fill="none"
@@ -149,8 +153,7 @@ export default function Contact() {
                 </button>
 
                 <p className="text-xs leading-6 text-white/40 md:col-span-2">
-                  Tip: you can connect this form to Nodemailer, Resend, Formspree,
-                  or your CRM later.
+                  {t.contact.form.tip}
                 </p>
               </form>
             </div>
@@ -167,6 +170,7 @@ function Field({
   type,
   placeholder,
   optional = false,
+  optionalText = "optional",
   className = "",
 }: {
   label: string;
@@ -174,6 +178,7 @@ function Field({
   type: string;
   placeholder: string;
   optional?: boolean;
+  optionalText?: string;
   className?: string;
 }) {
   return (
@@ -182,7 +187,7 @@ function Field({
         htmlFor={name}
         className="mb-2 block text-sm font-medium text-white/75"
       >
-        {label} {optional && <span className="text-white/35">(optional)</span>}
+        {label} {optional && <span className="text-white/35">({optionalText})</span>}
       </label>
       <input
         id={name}

@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const socialLinks = [
   {
@@ -31,19 +34,21 @@ const socialLinks = [
 ];
 
 const quickLinks = [
-  { label: "Services", href: "#services" },
-  { label: "Our Work", href: "#work" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Contact", href: "#contact" },
+  { key: "services", href: "#services" },
+  { key: "work", href: "#work" },
+  { key: "pricing", href: "#pricing" },
+  { key: "contact", href: "#contact" },
 ];
 
 const legalLinks = [
-  { label: "Privacy", href: "/privacy" },
-  { label: "Terms", href: "/terms" },
-  { label: "Sitemap", href: "/sitemap" },
+  { key: "privacy", href: "/privacy" },
+  { key: "terms", href: "/terms" },
+  { key: "sitemap", href: "/sitemap" },
 ];
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="relative isolate overflow-hidden border-t border-white/10 bg-neutral-950 text-white">
       {/* Background accents */}
@@ -64,31 +69,29 @@ export default function Footer() {
             </Link>
 
             <p className="mt-3 text-sm font-medium uppercase tracking-[0.18em] text-white/45">
-              Web • Google • Social • AI Automation
+              {t.footer.tagline}
             </p>
 
             <p className="mt-5 max-w-md text-sm leading-7 text-white/65">
-              Helping local businesses rise above the competition with premium
-              websites, stronger visibility, and modern digital systems built to
-              attract more leads.
+              {t.footer.description}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-white/45">
-              Quick Links
+              {t.footer.quickLinks}
             </h3>
 
             <nav className="mt-5 flex flex-col gap-3">
               {quickLinks.map((link) => (
                 <Link
-                  key={link.label}
+                  key={link.key}
                   href={link.href}
                   className="group inline-flex items-center gap-2 text-sm font-semibold text-white/70 transition-all duration-300 hover:text-amber-300 hover:translate-x-1"
                 >
                   <span className="h-1 w-1 rounded-full bg-amber-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  {link.label}
+                  {t.nav[link.key as keyof typeof t.nav]}
                 </Link>
               ))}
             </nav>
@@ -97,7 +100,7 @@ export default function Footer() {
           {/* Social / Legal */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-white/45">
-              Connect
+              {t.footer.connect}
             </h3>
 
             <div className="mt-5 flex gap-3">
@@ -119,12 +122,12 @@ export default function Footer() {
 
             <div className="mt-8 flex flex-wrap gap-x-3 gap-y-2 text-sm text-white/50">
               {legalLinks.map((link, index) => (
-                <div key={link.label} className="flex items-center gap-3">
+                <div key={link.key} className="flex items-center gap-3">
                   <Link
                     href={link.href}
                     className="font-medium transition-all duration-300 hover:text-amber-300 hover:underline underline-offset-4"
                   >
-                    {link.label}
+                    {t.footer.legal[link.key as keyof typeof t.footer.legal]}
                   </Link>
                   {index < legalLinks.length - 1 && <span className="text-white/20">•</span>}
                 </div>
@@ -134,7 +137,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 border-t border-white/10 pt-6 text-center text-sm text-white/45">
-          © {new Date().getFullYear()} E&amp;F Rise Digital. All rights reserved.
+          © {new Date().getFullYear()} E&amp;F Rise Digital. {t.footer.rights}.
         </div>
       </div>
     </footer>

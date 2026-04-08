@@ -2,45 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-
-const plans = [
-  {
-    name: "Starter",
-    price: "$199/mo",
-    desc: "Best for new businesses that need a clean, credible online presence.",
-    features: [
-      "Google Business Profile setup",
-      "Basic landing page",
-      "4 posts per month",
-      "Basic local SEO setup",
-    ],
-    highlight: false,
-  },
-  {
-    name: "Growth",
-    price: "$399/mo",
-    desc: "For businesses ready to rank higher, post consistently, and generate more leads.",
-    features: [
-      "Website + hosting",
-      "Google optimization",
-      "12 posts per month",
-      "Lead form + tracking",
-    ],
-    highlight: true,
-  },
-  {
-    name: "Premium",
-    price: "$799/mo",
-    desc: "For businesses that want stronger branding, automation, and aggressive local growth.",
-    features: [
-      "Full website build",
-      "Social media management",
-      "Local SEO + reviews",
-      "AI automation setup",
-    ],
-    highlight: false,
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -56,6 +18,12 @@ const fadeUp = {
 };
 
 export default function Pricing() {
+  const { t } = useLanguage();
+  const plans = t.pricing.plans.map((plan, index) => ({
+    ...plan,
+    highlight: index === 1  // Growth plan is highlighted
+  }));
+
   return (
     <section
       id="pricing"
@@ -79,19 +47,18 @@ export default function Pricing() {
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/80 backdrop-blur-md">
             <span className="h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_14px_rgba(251,191,36,0.85)]" />
-            Clear Monthly Plans
+            {t.pricing.badge}
           </div>
 
           <h2 className="mt-6 text-4xl font-black tracking-tight text-white sm:text-5xl md:text-6xl">
-            Simple pricing that{" "}
+            {t.pricing.title}{" "}
             <span className="bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 bg-clip-text text-transparent">
-              scales with you
+              {t.pricing.titleHighlight}
             </span>
           </h2>
 
           <p className="mt-5 text-lg leading-8 text-white/65">
-            Clear plans, real deliverables, and flexible support for businesses
-            that want to grow with confidence.
+            {t.pricing.subtitle}
           </p>
         </motion.div>
 
@@ -121,7 +88,7 @@ export default function Pricing() {
 
               {plan.highlight && (
                 <div className="absolute right-5 top-5 rounded-full border border-amber-300/20 bg-amber-400/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-300 backdrop-blur-md">
-                  Most Popular
+                  {t.pricing.highlight}
                 </div>
               )}
 
@@ -180,7 +147,7 @@ export default function Pricing() {
                       : "border-2 border-white/20 bg-white/10 text-white backdrop-blur-md hover:bg-white/15 hover:border-amber-400/40 hover:-translate-y-0.5 focus:ring-white/30"
                   }`}
                 >
-                  <span className="relative z-10">Get Started</span>
+                  <span className="relative z-10">{t.pricing.ctaButton}</span>
                   {plan.highlight && (
                     <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-amber-300 to-orange-400 opacity-0 transition-opacity duration-300 group-hover/btn:opacity-100" />
                   )}

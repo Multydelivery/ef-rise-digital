@@ -4,87 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMemo, useState } from "react";
-
-interface Project {
-  id: number;
-  title: string;
-  category: string;
-  description: string;
-  image: string;
-  link?: string;
-  tags: string[];
-}
-
-const projects: Project[] = [
-  {
-    id: 1,
-    title: "Local Restaurant Website",
-    category: "Web Design",
-    description:
-      "Modern restaurant website with online ordering, polished branding, and a mobile-first experience designed to convert visitors into customers.",
-    image:
-      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=800&fit=crop",
-    link: "https://bella-italia-restaurant-two.vercel.app/",
-    tags: ["Next.js", "Ordering", "SEO"],
-  },
-  {
-    id: 2,
-    title: "Real Estate Lead Generation",
-    category: "Digital Marketing",
-    description:
-      "High-converting lead generation system for a real estate brand using landing pages, paid traffic, and local search visibility.",
-    image:
-      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=800&fit=crop",
-    link: "#",
-    tags: ["Google Ads", "Landing Pages", "SEO"],
-  },
-  {
-    id: 3,
-    title: "Local Gym App",
-    category: "Mobile App",
-    description:
-      "Member-focused app for class bookings, workout tracking, and engagement flows that make retention easier.",
-    image:
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=800&fit=crop",
-    link: "#",
-    tags: ["React Native", "Firebase", "UX"],
-  },
-  {
-    id: 4,
-    title: "E-commerce Store",
-    category: "Web Design",
-    description:
-      "Premium online store experience with product structure, checkout flows, and performance-focused design.",
-    image:
-      "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&h=800&fit=crop",
-    link: "#",
-    tags: ["E-commerce", "Payments", "Analytics"],
-  },
-  {
-    id: 5,
-    title: "Social Media Campaign",
-    category: "Digital Marketing",
-    description:
-      "Content campaign built for reach, engagement, and lead generation across short-form and static formats.",
-    image:
-      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&h=800&fit=crop",
-    link: "#",
-    tags: ["Instagram", "Facebook", "Content"],
-  },
-  {
-    id: 6,
-    title: "Professional Services Website",
-    category: "Web Design",
-    description:
-      "Professional website for a service-based business with trust-building layout, scheduling, and polished visual structure.",
-    image:
-      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&h=800&fit=crop",
-    link: "#",
-    tags: ["Branding", "Scheduling", "Security"],
-  },
-];
-
-const categories = ["All", "Web Design", "Digital Marketing", "Mobile App"];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -100,12 +20,48 @@ const fadeUp = {
 };
 
 export default function Work() {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const { t } = useLanguage();
+  const [activeCategory, setActiveCategory] = useState(t.work.filterAll);
+
+  // Use translations for projects
+  const projects = useMemo(() => {
+    return t.work.projects.map((proj, index) => ({
+      id: index + 1,
+      title: proj.title,
+      category: proj.category,
+      description: proj.description,
+      image: [
+        "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=800&fit=crop",
+        "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=800&fit=crop",
+        "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=800&fit=crop",
+        "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&h=800&fit=crop",
+        "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&h=800&fit=crop",
+        "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&h=800&fit=crop"
+      ][index],
+      link: index === 0 ? "https://bella-italia-restaurant-two.vercel.app/" : "#",
+      tags: [
+        ["Next.js", "Ordering", "SEO"],
+        ["Google Ads", "Landing Pages", "SEO"],
+        ["React Native", "Firebase", "UX"],
+        ["E-commerce", "Payments", "Analytics"],
+        ["Instagram", "Facebook", "Content"],
+        ["Branding", "Scheduling", "Security"]
+      ][index]
+    }));
+  }, [t.work.projects]);
+
+  // Categories with translations
+  const categories = useMemo(() => [
+    t.work.filterAll,
+    t.work.categories.webDesign,
+    t.work.categories.digitalMarketing,
+    t.work.categories.mobileApp
+  ], [t.work]);
 
   const filteredProjects = useMemo(() => {
-    if (activeCategory === "All") return projects;
+    if (activeCategory === t.work.filterAll) return projects;
     return projects.filter((project) => project.category === activeCategory);
-  }, [activeCategory]);
+  }, [activeCategory, projects, t.work.filterAll]);
 
   return (
     <section
@@ -132,19 +88,18 @@ export default function Work() {
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/80 backdrop-blur-md">
             <span className="h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_14px_rgba(251,191,36,0.85)]" />
-            Selected Projects
+            {t.work.badge}
           </div>
 
           <h2 className="mt-6 text-4xl font-black tracking-tight text-white sm:text-5xl md:text-6xl">
-            Work that helps businesses{" "}
+            {t.work.title}{" "}
             <span className="bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 bg-clip-text text-transparent">
-              stand out
+              {t.work.titleHighlight}
             </span>
           </h2>
 
           <p className="mt-5 text-lg leading-8 text-white/65">
-            A look at the kind of websites, campaigns, and growth systems we
-            build to help brands look better, convert better, and grow faster.
+            {t.work.subtitle}
           </p>
         </motion.div>
 
@@ -228,7 +183,7 @@ export default function Work() {
                         rel={project.link && project.link !== "#" ? "noreferrer" : undefined}
                         className="group/btn inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-bold text-black shadow-xl transition-all duration-300 hover:bg-amber-300 hover:shadow-2xl hover:scale-105 active:scale-95"
                       >
-                        <span>View Project</span>
+                        <span>{t.work.viewProject}</span>
                         <svg
                           className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"
                           fill="none"

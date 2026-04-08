@@ -2,77 +2,9 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const services = [
-  {
-    title: "Web Design",
-    desc: "Fast, mobile-first websites that look premium and convert visitors into customers.",
-    icon: "🚀",
-    features: [
-      "Responsive design",
-      "Lightning-fast loading",
-      "SEO optimized",
-      "Mobile-first approach",
-    ],
-    badge: "Most Popular",
-  },
-  {
-    title: "Google Business Profile",
-    desc: "Setup + optimization for ranking in Google Maps, categories, services, and posts.",
-    icon: "📍",
-    features: [
-      "Profile optimization",
-      "Category setup",
-      "Review management",
-      "Google Maps ranking",
-    ],
-  },
-  {
-    title: "Social Media Management",
-    desc: "Consistent content, reels, captions, scheduling, and growth strategy across platforms.",
-    icon: "📱",
-    features: [
-      "Content creation",
-      "Post scheduling",
-      "Engagement strategy",
-      "Growth analytics",
-    ],
-  },
-  {
-    title: "Local SEO + Reviews",
-    desc: "Keyword strategy, citations, review system, and on-page SEO to get found faster.",
-    icon: "⭐",
-    features: [
-      "Keyword research",
-      "Citation building",
-      "Review generation",
-      "On-page optimization",
-    ],
-  },
-  {
-    title: "Automation + AI",
-    desc: "Chatbots, lead capture, auto replies, appointment flows, and CRM automations.",
-    icon: "🤖",
-    features: [
-      "AI chatbots",
-      "Lead capture forms",
-      "Automated responses",
-      "CRM integration",
-    ],
-    badge: "New",
-  },
-  {
-    title: "Branding Kits",
-    desc: "Logo polish, colors, typography, templates for posts, and a professional identity.",
-    icon: "🎨",
-    features: [
-      "Logo design",
-      "Color palette",
-      "Typography guide",
-      "Brand templates",
-    ],
-  },
-];
+const serviceIcons = ["🚀", "📍", "📱", "⭐", "🤖", "🎨"];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -88,6 +20,9 @@ const fadeUp = {
 };
 
 export default function Services() {
+  const { t } = useLanguage();
+  const services = t.services.items;
+
   return (
     <section
       id="services"
@@ -110,19 +45,18 @@ export default function Services() {
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/80 backdrop-blur-md">
             <span className="h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_14px_rgba(251,191,36,0.85)]" />
-            Growth Systems for Local Businesses
+            {t.services.badge}
           </div>
 
           <h2 className="mt-6 text-4xl font-black tracking-tight text-white sm:text-5xl md:text-6xl">
-            Services that{" "}
+            {t.services.title}{" "}
             <span className="bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 bg-clip-text text-transparent">
-              drive growth
+              {t.services.titleHighlight}
             </span>
           </h2>
 
           <p className="mt-5 text-lg leading-8 text-white/65">
-            Everything you need to look premium, rank higher on Google, and
-            stay consistent online without guessing what to do next.
+            {t.services.subtitle}
           </p>
         </motion.div>
 
@@ -154,7 +88,7 @@ export default function Services() {
               {/* icon */}
               <div className="relative mb-6">
                 <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-white/15 bg-gradient-to-br from-white/10 to-white/5 text-2xl shadow-lg shadow-black/20 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 group-hover:border-amber-400/30 group-hover:shadow-amber-500/20">
-                  {service.icon}
+                  {serviceIcons[idx]}
                 </div>
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-400/0 to-orange-500/0 opacity-0 blur-xl transition-opacity duration-500 group-hover:from-amber-400/20 group-hover:to-orange-500/10 group-hover:opacity-100" />
               </div>

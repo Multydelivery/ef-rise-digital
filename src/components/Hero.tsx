@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -30,6 +31,8 @@ const orbFloat = (duration = 10, delay = 0) => ({
 });
 
 export default function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section className="relative isolate flex min-h-screen items-center overflow-hidden bg-black text-white">
       {/* Background image */}
@@ -75,7 +78,7 @@ export default function Hero() {
             custom={0}
           >
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.8)]" />
-            AI + Web + Google + Social Growth
+            {t.hero.tagline}
           </motion.div>
 
           <motion.h1
@@ -85,11 +88,11 @@ export default function Hero() {
             animate="show"
             custom={0.15}
           >
-            Make your business{" "}
+            {t.hero.title}{" "}
             <span className="bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 bg-clip-text text-transparent">
-              impossible
+              {t.hero.titleHighlight}
             </span>{" "}
-            to miss.
+            {t.hero.titleEnd}
           </motion.h1>
 
           <motion.p
@@ -99,9 +102,7 @@ export default function Hero() {
             animate="show"
             custom={0.3}
           >
-            E&amp;F Rise Digital helps local businesses grow with premium
-            websites, stronger Google visibility, and content systems designed
-            to turn attention into leads.
+            {t.hero.subtitle}
           </motion.p>
 
           <motion.div
@@ -115,7 +116,7 @@ export default function Hero() {
               href="#contact"
               className="group inline-flex items-center justify-center rounded-2xl bg-amber-400 px-8 py-4 text-base font-semibold text-black shadow-xl shadow-amber-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-300 focus:outline-none focus:ring-4 focus:ring-amber-300/40"
             >
-              Get a Free Visibility Audit
+              {t.hero.ctaPrimary}
               <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
                 →
               </span>
@@ -125,7 +126,7 @@ export default function Hero() {
               href="#services"
               className="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/10 px-8 py-4 text-base font-semibold text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/15 focus:outline-none focus:ring-4 focus:ring-white/20"
             >
-              See Services
+              {t.hero.ctaSecondary}
             </Link>
           </motion.div>
 
@@ -136,10 +137,10 @@ export default function Hero() {
             animate="show"
             custom={0.6}
           >
-            <Stat label="Websites" value="Fast + Modern" />
-            <Stat label="Google Maps" value="Local SEO" />
-            <Stat label="Socials" value="Content + Growth" />
-            <Stat label="Automation" value="AI Tools" />
+            <Stat label={t.hero.stats.websites.label} value={t.hero.stats.websites.value} />
+            <Stat label={t.hero.stats.google.label} value={t.hero.stats.google.value} />
+            <Stat label={t.hero.stats.social.label} value={t.hero.stats.social.value} />
+            <Stat label={t.hero.stats.automation.label} value={t.hero.stats.automation.value} />
           </motion.div>
         </div>
       </div>

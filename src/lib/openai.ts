@@ -3,7 +3,7 @@ import type { Lead, ServiceCategory } from '@/types/lead';
 import { getDatabase } from './mongodb';
 
 export const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || 'dummy-key-for-build',
 });
 
 // System prompt with safety rules
