@@ -7,12 +7,12 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const serviceIcons = ["🚀", "📍", "📱", "⭐", "🤖", "🎨"];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 20 },
   show: (delay = 0) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.75,
+      duration: 0.5,
       delay,
       ease: [0.22, 1, 0.36, 1] as const,
     },
@@ -40,7 +40,7 @@ export default function Services() {
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.5 }}
           custom={0}
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/80 backdrop-blur-md">
@@ -64,14 +64,12 @@ export default function Services() {
           {services.map((service, idx) => (
             <motion.article
               key={service.title}
-              className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-7 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-amber-400/40 hover:bg-white/[0.08] hover:shadow-2xl hover:shadow-amber-500/10 active:scale-[0.98]"
+              className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-7 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-amber-400/40 hover:bg-white/[0.08] hover:shadow-2xl hover:shadow-amber-500/10 sm:active:scale-[0.98]"
               variants={fadeUp}
               initial="hidden"
               whileInView="show"
-              viewport={{ once: true, amount: 0.15 }}
-              custom={idx * 0.08}
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              viewport={{ once: true, amount: 0.3, margin: "0px 0px -10% 0px" }}
+              custom={idx * 0.05}
             >
               {/* glow */}
               <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
@@ -87,14 +85,14 @@ export default function Services() {
 
               {/* icon */}
               <div className="relative mb-6">
-                <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-white/15 bg-gradient-to-br from-white/10 to-white/5 text-2xl shadow-lg shadow-black/20 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 group-hover:border-amber-400/30 group-hover:shadow-amber-500/20">
+                <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-white/15 bg-gradient-to-br from-white/10 to-white/5 text-2xl shadow-lg shadow-black/20 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:border-amber-400/30 group-hover:shadow-amber-500/20">
                   {serviceIcons[idx]}
                 </div>
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-400/0 to-orange-500/0 opacity-0 blur-xl transition-opacity duration-500 group-hover:from-amber-400/20 group-hover:to-orange-500/10 group-hover:opacity-100" />
               </div>
 
               {/* content */}
-              <h3 className="max-w-[16rem] text-2xl font-bold tracking-tight text-white transition-all duration-500 group-hover:text-amber-300 group-hover:translate-x-1">
+              <h3 className="max-w-[16rem] text-2xl font-bold tracking-tight text-white transition-all duration-500 group-hover:text-amber-300 sm:group-hover:translate-x-1">
                 {service.title}
               </h3>
 
@@ -172,8 +170,8 @@ export default function Services() {
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-          custom={0.2}
+          viewport={{ once: true, amount: 0.4 }}
+          custom={0.1}
         >
           <h3 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
             Need a custom package?

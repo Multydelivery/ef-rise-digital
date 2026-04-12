@@ -146,7 +146,7 @@ export default function ChatWidget() {
   return (
     <>
       {/* Floating Chat Button */}
-      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 pb-safe pr-safe">
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 lg:bottom-8 lg:right-8 z-50">
         {/* Pulsing Ring Effect - Two versions for different screen sizes */}
         {!isOpen && (
           <>
@@ -275,16 +275,16 @@ export default function ChatWidget() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="fixed inset-x-0 bottom-0 sm:inset-auto sm:bottom-24 sm:right-4 md:right-6 z-50 flex h-[100dvh] sm:h-[600px] w-full sm:w-[400px] md:w-[440px] sm:max-w-md flex-col overflow-hidden sm:rounded-2xl border-0 sm:border-4 border-amber-400 bg-white shadow-2xl shadow-amber-500/20"
+              className="fixed inset-x-0 bottom-0 sm:inset-auto sm:bottom-24 sm:right-6 lg:bottom-[6.5rem] lg:right-8 z-50 flex h-dvh sm:h-[600px] lg:h-[650px] w-full sm:w-[400px] md:w-[440px] lg:w-[460px] sm:max-w-md flex-col overflow-hidden rounded-none sm:rounded-2xl border-0 sm:border-4 border-amber-400 bg-white shadow-2xl shadow-amber-500/20"
             >
             {/* Header - Sticky to stay visible when keyboard opens */}
-            <div className="sticky top-0 z-10 flex items-center gap-3 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 p-4 sm:p-5 overflow-hidden safe-area-inset-top">
+            <div className="sticky top-0 z-10 flex items-center gap-3 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 px-4 py-4 sm:px-5 sm:py-5 overflow-hidden">  
               {/* Background Animation */}
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 animate-pulse"></div>
               
               {/* Agent Avatar */}
               <motion.div 
-                className="relative flex h-12 w-12 sm:h-14 sm:w-14 flex-shrink-0 items-center justify-center rounded-full bg-white shadow-lg ring-4 ring-white/30 overflow-hidden"
+                className="relative flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-full bg-white shadow-lg ring-4 ring-white/30 overflow-hidden"
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: 'spring', delay: 0.2 }}
@@ -330,7 +330,7 @@ export default function ChatWidget() {
               <motion.button
                 onClick={closeChat}
                 aria-label="Close chat"
-                className="relative z-10 flex h-10 w-10 sm:h-11 sm:w-11 flex-shrink-0 items-center justify-center rounded-full bg-white/20 hover:bg-white/30 active:bg-white/40 transition-all cursor-pointer touch-manipulation"
+                className="relative z-10 flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-full bg-white/20 hover:bg-white/30 active:bg-white/40 transition-all cursor-pointer touch-manipulation"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0, rotate: -90 }}
@@ -344,7 +344,7 @@ export default function ChatWidget() {
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 space-y-3 sm:space-y-4 overflow-y-auto bg-gradient-to-b from-orange-50 to-amber-50 p-3 sm:p-4 overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
+            <div className="flex-1 space-y-3 sm:space-y-4 overflow-y-auto bg-gradient-to-b from-orange-50 to-amber-50 px-4 py-4 sm:px-5 sm:py-5 overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
               {messages.map((msg, idx) => (
                 <motion.div
                   key={idx}
@@ -355,7 +355,7 @@ export default function ChatWidget() {
                 >
                   {/* Assistant Avatar */}
                   {msg.role === 'assistant' && (
-                    <div className="flex-shrink-0 h-7 w-7 sm:h-8 sm:w-8 rounded-full overflow-hidden shadow-md ring-2 ring-amber-200">
+                    <div className="shrink-0 h-8 w-8 sm:h-9 sm:w-9 rounded-full overflow-hidden shadow-md ring-2 ring-amber-200">
                       <img
                         src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face"
                         alt="Agent"
@@ -365,13 +365,13 @@ export default function ChatWidget() {
                   )}
                   
                   <div
-                    className={`max-w-[80%] sm:max-w-[75%] rounded-2xl px-3 py-2 sm:px-4 sm:py-3 shadow-md ${
+                    className={`max-w-[85%] sm:max-w-[80%] rounded-2xl px-4 py-3 sm:px-4 sm:py-3 shadow-md ${
                       msg.role === 'user'
-                        ? 'bg-gradient-to-br from-amber-500 to-orange-600 text-white rounded-br-sm'
-                        : 'bg-white text-gray-900 border-2 border-amber-200 rounded-bl-sm'
+                        ? 'bg-gradient-to-br from-amber-500 to-orange-600 text-white rounded-br-md'
+                        : 'bg-white text-gray-900 border-2 border-amber-200 rounded-bl-md'
                     }`}
                   >
-                    <p className="whitespace-pre-wrap text-xs sm:text-sm leading-relaxed break-words">{msg.content}</p>
+                    <p className="text-sm sm:text-base leading-relaxed break-words">{msg.content}</p>
                   </div>
                 </motion.div>
               ))}
@@ -382,27 +382,27 @@ export default function ChatWidget() {
                   animate={{ opacity: 1 }}
                   className="flex justify-start gap-2"
                 >
-                  <div className="flex-shrink-0 h-7 w-7 sm:h-8 sm:w-8 rounded-full overflow-hidden shadow-md ring-2 ring-amber-200">
+                  <div className="shrink-0 h-8 w-8 sm:h-9 sm:w-9 rounded-full overflow-hidden shadow-md ring-2 ring-amber-200">
                     <img
                       src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face"
                       alt="Agent"
                       className="h-full w-full object-cover"
                     />
                   </div>
-                  <div className="rounded-2xl border-2 border-amber-200 bg-white px-4 sm:px-5 py-2 sm:py-3 shadow-md">
+                  <div className="rounded-2xl border-2 border-amber-200 bg-white px-5 py-3 sm:px-6 sm:py-3.5 shadow-md">
                     <div className="flex space-x-2">
                       <motion.div
-                        className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500"
+                        className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-gradient-to-r from-amber-500 to-orange-500"
                         animate={{ y: [0, -10, 0] }}
                         transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
                       />
                       <motion.div
-                        className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500"
+                        className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-gradient-to-r from-amber-500 to-orange-500"
                         animate={{ y: [0, -10, 0] }}
                         transition={{ duration: 0.6, repeat: Infinity, delay: 0.15 }}
                       />
                       <motion.div
-                        className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500"
+                        className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-gradient-to-r from-amber-500 to-orange-500"
                         animate={{ y: [0, -10, 0] }}
                         transition={{ duration: 0.6, repeat: Infinity, delay: 0.3 }}
                       />
@@ -415,16 +415,17 @@ export default function ChatWidget() {
             </div>
 
             {/* Input Area - Sticky to stay visible */}
-            <div className="sticky bottom-0 z-10 border-t-2 border-amber-200 bg-white p-3 sm:p-4 pb-safe safe-area-inset-bottom">
+            <div className="sticky bottom-0 z-10 border-t-2 border-amber-200 bg-white px-4 pt-3 pb-4 sm:px-5 sm:pt-4 sm:pb-5">
               {/* End Chat Button - Always visible */}
-              <div className="mb-2 flex justify-center">
+              <div className="mb-3 flex justify-center">
                 <motion.button
                   onClick={closeChat}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700 text-xs sm:text-sm font-medium transition-colors touch-manipulation shadow-sm"
+                  whileHover={{ scale: 1.02 }}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 active:from-gray-300 active:to-gray-400 text-gray-700 text-sm sm:text-base font-semibold transition-all touch-manipulation shadow-md hover:shadow-lg border border-gray-300"
                   aria-label="End chat"
                 >
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                   End Chat
@@ -448,7 +449,7 @@ export default function ChatWidget() {
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Type your message..."
                     disabled={isLoading}
-                    className="w-full rounded-xl border-2 border-amber-300 bg-amber-50/50 pl-3 pr-10 py-2.5 sm:pl-4 sm:pr-11 sm:py-3 text-sm text-gray-900 placeholder:text-gray-500 focus:border-orange-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-orange-200 disabled:opacity-50 transition-all duration-200"
+                    className="w-full rounded-xl border-2 border-amber-300 bg-amber-50/50 pl-4 pr-11 py-3 sm:pl-4 sm:pr-12 sm:py-3.5 text-sm sm:text-base text-gray-900 placeholder:text-gray-500 focus:border-orange-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-orange-200 disabled:opacity-50 transition-all duration-200"
                   />
                   {/* Clear input button */}
                   {input && !isLoading && (
@@ -458,7 +459,7 @@ export default function ChatWidget() {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.8 }}
                       onClick={clearInput}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-full bg-gray-300 hover:bg-gray-400 transition-colors cursor-pointer touch-manipulation"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-full bg-gray-300 hover:bg-gray-400 active:bg-gray-500 transition-colors cursor-pointer touch-manipulation"
                       aria-label="Clear input"
                     >
                       <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -473,14 +474,14 @@ export default function ChatWidget() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label="Send message"
-                  className="flex h-11 w-11 sm:h-12 sm:w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-lg hover:shadow-orange-500/50 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 ring-2 ring-amber-200 touch-manipulation active:ring-4 active:ring-orange-300"
+                  className="flex h-12 w-12 sm:h-13 sm:w-13 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-lg hover:shadow-orange-500/50 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 ring-2 ring-amber-200 touch-manipulation active:ring-4 active:ring-orange-300"
                 >
-                  <svg className="h-5 w-5 sm:h-5.5 sm:w-5.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                   </svg>
                 </motion.button>
               </form>
-              <div className="mt-2 flex items-center justify-center gap-2">
+              <div className="mt-3 flex items-center justify-center gap-2">
                 <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-green-500 animate-pulse"></div>
                 <p className="text-[10px] sm:text-xs text-gray-600 font-medium">
                   🔒 Secured by AI • Instant responses
