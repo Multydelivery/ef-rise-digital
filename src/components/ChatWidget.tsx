@@ -87,6 +87,12 @@ export default function ChatWidget() {
     const newMessages = [...messages, userMessage];
     setMessages(newMessages);
     setInput('');
+    
+    // Blur input to dismiss keyboard on mobile after sending
+    if (inputRef.current && window.innerWidth < 640) {
+      inputRef.current.blur();
+    }
+    
     setIsLoading(true);
 
     try {
@@ -125,13 +131,6 @@ export default function ChatWidget() {
       ]);
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
     }
   };
 
@@ -278,8 +277,8 @@ export default function ChatWidget() {
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
               className="fixed inset-x-0 bottom-0 sm:inset-auto sm:bottom-24 sm:right-4 md:right-6 z-50 flex h-[100dvh] sm:h-[600px] w-full sm:w-[400px] md:w-[440px] sm:max-w-md flex-col overflow-hidden sm:rounded-2xl border-0 sm:border-4 border-amber-400 bg-white shadow-2xl shadow-amber-500/20"
             >
-            {/* Header */}
-            <div className="relative flex items-center gap-3 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 p-4 sm:p-5 overflow-hidden safe-area-inset-top">
+            {/* Header - Sticky to stay visible when keyboard opens */}
+            <div className="sticky top-0 z-10 flex items-center gap-3 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 p-4 sm:p-5 overflow-hidden safe-area-inset-top">
               {/* Background Animation */}
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 animate-pulse"></div>
               
@@ -415,16 +414,38 @@ export default function ChatWidget() {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input Area */}
-            <div className="border-t-2 border-amber-200 bg-white p-3 sm:p-4 pb-safe safe-area-inset-bottom">
-              <div className="flex items-end gap-2">
+            {/* Input Area - Sticky to stay visible */}
+            <div className="sticky bottom-0 z-10 border-t-2 border-amber-200 bg-white p-3 sm:p-4 pb-safe safe-area-inset-bottom">
+              {/* End Chat Button - Always visible */}
+              <div className="mb-2 flex justify-center">
+                <motion.button
+                  onClick={closeChat}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700 text-xs sm:text-sm font-medium transition-colors touch-manipulation shadow-sm"
+                  aria-label="End chat"
+                >
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                  End Chat
+                </motion.button>
+              </div>
+              
+              <form 
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  sendMessage();
+                }}
+                className="flex items-end gap-2"
+              >
                 <div className="flex-1 relative">
                   <input
                     ref={inputRef}
                     type="text"
+                    inputMode="text"
+                    enterKeyHint="send"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    onKeyPress={handleKeyPress}
                     placeholder="Type your message..."
                     disabled={isLoading}
                     className="w-full rounded-xl border-2 border-amber-300 bg-amber-50/50 pl-3 pr-10 py-2.5 sm:pl-4 sm:pr-11 sm:py-3 text-sm text-gray-900 placeholder:text-gray-500 focus:border-orange-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-orange-200 disabled:opacity-50 transition-all duration-200"
@@ -432,6 +453,7 @@ export default function ChatWidget() {
                   {/* Clear input button */}
                   {input && !isLoading && (
                     <motion.button
+                      type="button"
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.8 }}
@@ -446,7 +468,7 @@ export default function ChatWidget() {
                   )}
                 </div>
                 <motion.button
-                  onClick={sendMessage}
+                  type="submit"
                   disabled={!input.trim() || isLoading}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -457,11 +479,11 @@ export default function ChatWidget() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                   </svg>
                 </motion.button>
-              </div>
-              <div className="mt-2 sm:mt-3 flex items-center justify-center gap-2">
+              </form>
+              <div className="mt-2 flex items-center justify-center gap-2">
                 <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-green-500 animate-pulse"></div>
                 <p className="text-[10px] sm:text-xs text-gray-600 font-medium">
-                  🔒 Secured by AI • Instant responses • Press ESC to close
+                  🔒 Secured by AI • Instant responses
                 </p>
               </div>
             </div>
