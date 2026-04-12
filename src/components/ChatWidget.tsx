@@ -15,6 +15,7 @@ export default function ChatWidget() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -26,6 +27,45 @@ export default function ChatWidget() {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 100);
     }
+  }, [isOpen]);
+
+  // Prevent body scroll when chat is open on mobile
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  // Handle ESC key to close chat
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen]);
+
+  // Handle click outside to close (desktop only)
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        isOpen &&
+        chatContainerRef.current &&
+        !chatContainerRef.current.contains(e.target as Node) &&
+        window.innerWidth >= 640 // Only on desktop (sm breakpoint)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen]);
 
   // Initial greeting when chat opens
@@ -95,15 +135,24 @@ export default function ChatWidget() {
     }
   };
 
+  const closeChat = () => {
+    setIsOpen(false);
+  };
+
+  const clearInput = () => {
+    setInput('');
+    inputRef.current?.focus();
+  };
+
   return (
     <>
       {/* Floating Chat Button */}
-      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 pb-safe pr-safe">
         {/* Pulsing Ring Effect - Two versions for different screen sizes */}
         {!isOpen && (
           <>
             <motion.div
-              className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 opacity-75 sm:hidden"
+              className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 opacity-75 sm:hidden pointer-events-none"
               animate={{
                 scale: [1, 1.3, 1],
                 opacity: [0.75, 0, 0.75],
@@ -116,7 +165,7 @@ export default function ChatWidget() {
               style={{ width: '64px', height: '64px', left: '-4px', top: '-4px' }}
             />
             <motion.div
-              className="hidden sm:block absolute inset-0 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 opacity-75"
+              className="hidden sm:block absolute inset-0 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 opacity-75 pointer-events-none"
               animate={{
                 scale: [1, 1.3, 1],
                 opacity: [0.75, 0, 0.75],
@@ -134,7 +183,8 @@ export default function ChatWidget() {
         {/* Chat Button */}
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
-          className="relative flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 text-white shadow-2xl hover:shadow-amber-500/60 transition-all duration-300 ring-4 ring-white cursor-pointer"
+          aria-label={isOpen ? "Close chat" : "Open chat"}
+          className="relative flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 text-white shadow-2xl hover:shadow-amber-500/60 transition-all duration-300 ring-4 ring-white cursor-pointer touch-manipulation active:ring-6 active:ring-orange-300"
           whileHover={{ scale: 1.1, rotate: 5 }}
           whileTap={{ scale: 0.95 }}
           initial={{ scale: 0, rotate: -180 }}
@@ -183,23 +233,23 @@ export default function ChatWidget() {
           {/* New Message Badge */}
           {!isOpen && (
             <motion.div
-              className="absolute -top-1 -right-1 h-4 w-4 sm:h-5 sm:w-5 rounded-full bg-red-500 border-2 border-white"
+              className="absolute -top-1 -right-1 h-5 w-5 sm:h-5.5 sm:w-5.5 rounded-full bg-red-500 border-2 border-white pointer-events-none"
               initial={{ scale: 0 }}
               animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 1, repeat: Infinity }}
+              transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
             >
               <span className="absolute inset-0 flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-white">!</span>
             </motion.div>
           )}
         </motion.button>
         
-        {/* "Chat with us!" Label - Hidden on mobile */}
+        {/* "Chat with us!" Label - Hidden on mobile, better positioned */}
         {!isOpen && (
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 1.5 }}
-            className="hidden sm:block absolute right-20 top-1/2 -translate-y-1/2 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-full shadow-lg font-semibold text-sm whitespace-nowrap"
+            className="hidden sm:block absolute right-20 top-1/2 -translate-y-1/2 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2.5 rounded-full shadow-lg font-semibold text-sm whitespace-nowrap pointer-events-none"
           >
             💬 Chat with us!
             <div className="absolute right-[-6px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] border-l-orange-500"></div>
@@ -210,21 +260,32 @@ export default function ChatWidget() {
       {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-4 md:right-6 z-50 flex h-full sm:h-[600px] w-full sm:w-[380px] md:w-[420px] sm:max-w-md flex-col overflow-hidden sm:rounded-2xl border-0 sm:border-4 border-amber-400 bg-white shadow-2xl shadow-amber-500/20"
-          >
+          <>
+            {/* Backdrop overlay for mobile */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeChat}
+              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 sm:hidden"
+            />
+            
+            <motion.div
+              ref={chatContainerRef}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="fixed inset-x-0 bottom-0 sm:inset-auto sm:bottom-24 sm:right-4 md:right-6 z-50 flex h-[100dvh] sm:h-[600px] w-full sm:w-[400px] md:w-[440px] sm:max-w-md flex-col overflow-hidden sm:rounded-2xl border-0 sm:border-4 border-amber-400 bg-white shadow-2xl shadow-amber-500/20"
+            >
             {/* Header */}
-            <div className="relative flex items-center gap-3 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 p-4 sm:p-5 overflow-hidden">
+            <div className="relative flex items-center gap-3 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 p-4 sm:p-5 overflow-hidden safe-area-inset-top">
               {/* Background Animation */}
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 animate-pulse"></div>
               
               {/* Agent Avatar */}
               <motion.div 
-                className="relative flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white shadow-lg ring-4 ring-white/30 overflow-hidden"
+                className="relative flex h-12 w-12 sm:h-14 sm:w-14 flex-shrink-0 items-center justify-center rounded-full bg-white shadow-lg ring-4 ring-white/30 overflow-hidden"
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: 'spring', delay: 0.2 }}
@@ -244,9 +305,9 @@ export default function ChatWidget() {
                 />
               </motion.div>
               
-              <div className="flex-1 relative z-10">
+              <div className="flex-1 relative z-10 min-w-0">
                 <motion.h3 
-                  className="font-bold text-white text-base sm:text-lg drop-shadow-md"
+                  className="font-bold text-white text-base sm:text-lg drop-shadow-md truncate"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 }}
@@ -266,20 +327,25 @@ export default function ChatWidget() {
                 </motion.div>
               </div>
               
-              {/* Close button for mobile */}
+              {/* Enhanced Close button - Visible on all screen sizes */}
               <motion.button
-                onClick={() => setIsOpen(false)}
-                className="sm:hidden relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors cursor-pointer"
+                onClick={closeChat}
+                aria-label="Close chat"
+                className="relative z-10 flex h-10 w-10 sm:h-11 sm:w-11 flex-shrink-0 items-center justify-center rounded-full bg-white/20 hover:bg-white/30 active:bg-white/40 transition-all cursor-pointer touch-manipulation"
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, rotate: -90 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                transition={{ delay: 0.5 }}
               >
-                <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </motion.button>
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 space-y-3 sm:space-y-4 overflow-y-auto bg-gradient-to-b from-orange-50 to-amber-50 p-3 sm:p-4">
+            <div className="flex-1 space-y-3 sm:space-y-4 overflow-y-auto bg-gradient-to-b from-orange-50 to-amber-50 p-3 sm:p-4 overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
               {messages.map((msg, idx) => (
                 <motion.div
                   key={idx}
@@ -306,7 +372,7 @@ export default function ChatWidget() {
                         : 'bg-white text-gray-900 border-2 border-amber-200 rounded-bl-sm'
                     }`}
                   >
-                    <p className="whitespace-pre-wrap text-xs sm:text-sm leading-relaxed">{msg.content}</p>
+                    <p className="whitespace-pre-wrap text-xs sm:text-sm leading-relaxed break-words">{msg.content}</p>
                   </div>
                 </motion.div>
               ))}
@@ -350,26 +416,44 @@ export default function ChatWidget() {
             </div>
 
             {/* Input Area */}
-            <div className="border-t-2 border-amber-200 bg-white p-3 sm:p-4 safe-area-inset-bottom">
+            <div className="border-t-2 border-amber-200 bg-white p-3 sm:p-4 pb-safe safe-area-inset-bottom">
               <div className="flex items-end gap-2">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Type your message..."
-                  disabled={isLoading}
-                  className="flex-1 rounded-xl border-2 border-amber-300 bg-amber-50/50 px-3 py-2.5 sm:px-4 sm:py-3 text-sm text-gray-900 placeholder:text-gray-500 focus:border-orange-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-orange-200 disabled:opacity-50 transition-all duration-200"
-                />
+                <div className="flex-1 relative">
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Type your message..."
+                    disabled={isLoading}
+                    className="w-full rounded-xl border-2 border-amber-300 bg-amber-50/50 pl-3 pr-10 py-2.5 sm:pl-4 sm:pr-11 sm:py-3 text-sm text-gray-900 placeholder:text-gray-500 focus:border-orange-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-orange-200 disabled:opacity-50 transition-all duration-200"
+                  />
+                  {/* Clear input button */}
+                  {input && !isLoading && (
+                    <motion.button
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      onClick={clearInput}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-full bg-gray-300 hover:bg-gray-400 transition-colors cursor-pointer touch-manipulation"
+                      aria-label="Clear input"
+                    >
+                      <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </motion.button>
+                  )}
+                </div>
                 <motion.button
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-lg hover:shadow-orange-500/50 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 ring-2 ring-amber-200"
+                  aria-label="Send message"
+                  className="flex h-11 w-11 sm:h-12 sm:w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-lg hover:shadow-orange-500/50 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all duration-200 ring-2 ring-amber-200 touch-manipulation active:ring-4 active:ring-orange-300"
                 >
-                  <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <svg className="h-5 w-5 sm:h-5.5 sm:w-5.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                   </svg>
                 </motion.button>
@@ -377,11 +461,12 @@ export default function ChatWidget() {
               <div className="mt-2 sm:mt-3 flex items-center justify-center gap-2">
                 <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-green-500 animate-pulse"></div>
                 <p className="text-[10px] sm:text-xs text-gray-600 font-medium">
-                  🔒 Secured by AI • Instant responses
+                  🔒 Secured by AI • Instant responses • Press ESC to close
                 </p>
               </div>
             </div>
           </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
