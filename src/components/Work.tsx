@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const fadeUp = {
@@ -20,13 +20,8 @@ const fadeUp = {
 };
 
 export default function Work() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState(t.work.filterAll);
-
-  // Reset filter to "All" when language changes
-  useEffect(() => {
-    setActiveCategory(t.work.filterAll);
-  }, [language, t.work.filterAll]);
 
   // Use translations for projects
   const projects = useMemo(() => {
@@ -230,7 +225,7 @@ export default function Work() {
 
                   <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5">
                     <span className="text-sm text-white/45">
-                      Built for growth
+                      {t.work.builtForGrowth}
                     </span>
 
                     <Link
@@ -239,7 +234,7 @@ export default function Work() {
                       rel={project.link && project.link !== "#" ? "noreferrer" : undefined}
                       className="inline-flex items-center gap-2 text-sm font-semibold text-amber-300 transition-all duration-300 hover:gap-3 hover:text-amber-200"
                     >
-                      Explore
+                      {t.work.explore}
                       <svg
                         className="h-4 w-4"
                         fill="none"
@@ -273,12 +268,11 @@ export default function Work() {
           custom={0.2}
         >
           <h3 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
-            Want your business to be next?
+            {t.work.ctaTitle}
           </h3>
 
           <p className="mx-auto mt-3 max-w-2xl text-white/65">
-            Let’s build a premium website, campaign, or digital system that
-            makes your brand look stronger and convert better.
+            {t.work.ctaDesc}
           </p>
 
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
@@ -286,7 +280,7 @@ export default function Work() {
               href="#contact"
               className="inline-flex items-center justify-center gap-2 rounded-2xl bg-amber-400 px-8 py-4 text-base font-semibold text-black shadow-xl shadow-amber-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-300 focus:outline-none focus:ring-4 focus:ring-amber-300/40"
             >
-              Start Your Project
+              {t.work.ctaButton}
               <svg
                 className="h-5 w-5"
                 fill="none"
@@ -306,7 +300,7 @@ export default function Work() {
               href="#services"
               className="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/10 px-8 py-4 text-base font-semibold text-white backdrop-blur-md transition-all duration-300 hover:bg-white/15 focus:outline-none focus:ring-4 focus:ring-white/20"
             >
-              See Services
+              {t.work.ctaSecondary}
             </Link>
           </div>
         </motion.div>

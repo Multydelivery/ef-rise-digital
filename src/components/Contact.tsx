@@ -44,20 +44,18 @@ export default function Contact() {
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/80 backdrop-blur-md">
                 <span className="h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_14px_rgba(251,191,36,0.85)]" />
-                Free Visibility Audit
+                {t.contact.badge}
               </div>
 
               <h2 className="mt-6 text-4xl font-black tracking-tight text-white sm:text-5xl md:text-6xl">
-                Let’s find your next{" "}
+                {t.contact.title}{" "}
                 <span className="bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 bg-clip-text text-transparent">
-                  growth opportunities
+                  {t.contact.titleHighlight}
                 </span>
               </h2>
 
               <p className="mt-5 max-w-xl text-base leading-8 text-white/65 sm:text-lg">
-                Tell us your business name, city, and what you need help with.
-                We’ll send back a quick plan to improve your Google presence,
-                website, and social visibility.
+                {t.contact.subtitle}
               </p>
 
               <div className="mt-8 space-y-4">

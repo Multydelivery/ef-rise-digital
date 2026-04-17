@@ -109,7 +109,7 @@ export default function Pricing() {
 
                 <div className="mt-8 border-t border-white/10 pt-6">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">
-                    What’s included
+                    {t.pricing.whatsIncluded}
                   </p>
 
                   <ul className="mt-4 space-y-3">
@@ -170,12 +170,11 @@ export default function Pricing() {
           custom={0.2}
         >
           <h3 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
-            Need a custom solution?
+            {t.pricing.customSolutionTitle}
           </h3>
 
           <p className="mx-auto mt-3 max-w-2xl text-white/65">
-            Every business is different. We can build a custom package around
-            your goals, your budget, and the growth stage you’re in right now.
+            {t.pricing.customSolutionDesc}
           </p>
 
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
@@ -183,7 +182,7 @@ export default function Pricing() {
               href="#contact"
               className="inline-flex items-center justify-center gap-2 rounded-2xl bg-amber-400 px-8 py-4 text-base font-semibold text-black shadow-xl shadow-amber-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-300 focus:outline-none focus:ring-4 focus:ring-amber-300/40"
             >
-              Contact Us for Custom Pricing
+              {t.pricing.customSolutionCta}
               <svg
                 className="h-5 w-5"
                 fill="none"

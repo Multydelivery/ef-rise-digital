@@ -102,7 +102,7 @@ export default function Services() {
 
               <div className="mt-6">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">
-                  What’s included
+                  {t.services.whatsIncluded}
                 </p>
 
                 <ul className="mt-4 space-y-3">
@@ -134,14 +134,14 @@ export default function Services() {
 
               <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-6">
                 <span className="text-sm font-medium text-white/50">
-                  Custom strategy available
+                  {t.services.customAvailable}
                 </span>
 
                 <Link
                   href="#contact"
                   className="inline-flex items-center gap-2 text-sm font-semibold text-amber-300 transition-all duration-300 hover:gap-3 hover:text-amber-200"
                 >
-                  Let’s build it
+                  {t.services.letsBuild}
                   <svg
                     className="h-4 w-4"
                     fill="none"
@@ -174,12 +174,10 @@ export default function Services() {
           custom={0.1}
         >
           <h3 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
-            Need a custom package?
+            {t.services.customPackageTitle}
           </h3>
           <p className="mx-auto mt-3 max-w-2xl text-white/65">
-            We can combine web design, local SEO, Google Business Profile work,
-            content, and automation into one growth system built around your
-            business goals.
+            {t.services.customPackageDesc}
           </p>
 
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
@@ -187,7 +185,7 @@ export default function Services() {
               href="#contact"
               className="inline-flex items-center justify-center gap-2 rounded-2xl bg-amber-400 px-8 py-4 text-base font-semibold text-black shadow-xl shadow-amber-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-300 focus:outline-none focus:ring-4 focus:ring-amber-300/40"
             >
-              Get Custom Quote
+              {t.services.getQuote}
               <svg
                 className="h-5 w-5"
                 fill="none"
@@ -207,7 +205,7 @@ export default function Services() {
               href="#contact"
               className="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/10 px-8 py-4 text-base font-semibold text-white backdrop-blur-md transition-all duration-300 hover:bg-white/15 focus:outline-none focus:ring-4 focus:ring-white/20"
             >
-              Book a Free Call
+              {t.services.bookCall}
             </Link>
           </div>
         </motion.div>

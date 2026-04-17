@@ -27,6 +27,13 @@ export const translations = {
       title: "Services that help you",
       titleHighlight: "grow faster",
       subtitle: "We handle the systems that bring customers to your business—websites, Google, content, and automation.",
+      whatsIncluded: "What's included",
+      customAvailable: "Custom strategy available",
+      letsBuild: "Let's build it",
+      customPackageTitle: "Need a custom package?",
+      customPackageDesc: "We can combine web design, local SEO, Google Business Profile work, content, and automation into one growth system built around your business goals.",
+      getQuote: "Get Custom Quote",
+      bookCall: "Book a Free Call",
       items: [
         {
           title: "Web Design",
@@ -135,7 +142,13 @@ export const translations = {
           description: "Professional website for a service-based business with trust-building layout, scheduling, and polished visual structure."
         }
       ],
-      viewProject: "View Project"
+      builtForGrowth: "Built for growth",
+      explore: "Explore",
+      viewProject: "View Project",
+      ctaTitle: "Want your business to be next?",
+      ctaDesc: "Let's build a premium website, campaign, or digital system that makes your brand look stronger and convert better.",
+      ctaButton: "Start Your Project",
+      ctaSecondary: "See Services"
     },
     pricing: {
       badge: "Clear Monthly Plans",
@@ -143,7 +156,11 @@ export const translations = {
       titleHighlight: "scales with you",
       subtitle: "Clear plans, real deliverables, and flexible support for businesses that want to grow with confidence.",
       highlight: "Most Popular",
+      whatsIncluded: "What's included",
       ctaButton: "Get Started",
+      customSolutionTitle: "Need a custom solution?",
+      customSolutionDesc: "Every business is different. We can build a custom package around your goals, your budget, and the growth stage you're in right now.",
+      customSolutionCta: "Contact Us for Custom Pricing",
       plans: [
         {
           name: "Starter",
@@ -258,6 +275,13 @@ export const translations = {
       title: "Servicios que te ayudan a",
       titleHighlight: "crecer más rápido",
       subtitle: "Manejamos los sistemas que traen clientes a tu negocio: sitios web, Google, contenido y automatización.",
+      whatsIncluded: "Qué incluye",
+      customAvailable: "Estrategia personalizada disponible",
+      letsBuild: "Construyámoslo",
+      customPackageTitle: "¿Necesitas un paquete personalizado?",
+      customPackageDesc: "Podemos combinar diseño web, SEO local, trabajo de Google Business Profile, contenido y automatización en un sistema de crecimiento construido en torno a tus objetivos de negocio.",
+      getQuote: "Obtener Cotización Personalizada",
+      bookCall: "Reservar Llamada Gratuita",
       items: [
         {
           title: "Diseño Web",
@@ -366,7 +390,13 @@ export const translations = {
           description: "Sitio web profesional para un negocio basado en servicios con diseño que genera confianza, programación y estructura visual pulida."
         }
       ],
-      viewProject: "Ver Proyecto"
+      builtForGrowth: "Construido para crecer",
+      explore: "Explorar",
+      viewProject: "Ver Proyecto",
+      ctaTitle: "¿Quieres que tu negocio sea el próximo?",
+      ctaDesc: "Construyamos un sitio web premium, campaña o sistema digital que haga que tu marca se vea más fuerte y convierta mejor.",
+      ctaButton: "Inicia Tu Proyecto",
+      ctaSecondary: "Ver Servicios"
     },
     pricing: {
       badge: "Planes Mensuales Claros",
@@ -374,7 +404,11 @@ export const translations = {
       titleHighlight: "escalan contigo",
       subtitle: "Planes claros, entregables reales y soporte flexible para negocios que quieren crecer con confianza.",
       highlight: "Más Popular",
+      whatsIncluded: "Qué incluye",
       ctaButton: "Comenzar",
+      customSolutionTitle: "¿Necesitas una solución personalizada?",
+      customSolutionDesc: "Cada negocio es diferente. Podemos construir un paquete personalizado en torno a tus objetivos, tu presupuesto y la etapa de crecimiento en la que te encuentras ahora mismo.",
+      customSolutionCta: "Contáctanos para Precio Personalizado",
       plans: [
         {
           name: "Inicial",
