@@ -82,7 +82,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.h1
-            className="mt-7 max-w-5xl text-4xl font-black leading-[0.95] tracking-tight sm:text-5xl md:text-7xl lg:text-8xl"
+            className="mt-7 max-w-5xl text-[2.25rem] font-black leading-[0.95] tracking-tight xs:text-4xl sm:text-5xl md:text-7xl lg:text-8xl"
             variants={fadeUp}
             initial="hidden"
             animate="show"
@@ -158,7 +158,7 @@ function Stat({ label, value }: { label: string; value: string }) {
       whileHover={{ y: -4 }}
     >
       <div className="text-base font-semibold text-white sm:text-lg">{value}</div>
-      <div className="mt-2 text-[11px] font-medium uppercase tracking-[0.22em] text-white/55">
+              <div className="mt-2 text-xs sm:text-[11px] font-medium uppercase tracking-[0.22em] text-white/55">
         {label}
       </div>
     </motion.div>

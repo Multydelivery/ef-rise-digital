@@ -116,7 +116,7 @@ export default function Contact() {
                 <div className="md:col-span-2">
                   <label
                     htmlFor="message"
-                    className="mb-2 block text-sm font-medium text-white/75"
+                    className="mb-2 block text-sm sm:text-base font-medium text-white/75"
                   >
                     {t.contact.form.message}
                   </label>
@@ -124,7 +124,7 @@ export default function Contact() {
                     id="message"
                     name="message"
                     rows={5}
-                    className="w-full rounded-2xl border-2 border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none backdrop-blur-md transition-all duration-300 hover:border-white/25 focus:border-amber-400/50 focus:bg-white/[0.08] focus:ring-4 focus:ring-amber-400/20 resize-none"
+                    className="w-full rounded-2xl border-2 border-white/15 bg-white/5 px-5 py-4 text-sm sm:text-base text-white placeholder:text-white/40 outline-none backdrop-blur-md transition-all duration-300 hover:border-white/25 focus:border-amber-400/50 focus:bg-white/[0.08] focus:ring-4 focus:ring-amber-400/20 resize-none"
                     placeholder={t.contact.form.messagePlaceholder}
                   />
                 </div>
@@ -183,7 +183,7 @@ function Field({
     <div className={className}>
       <label
         htmlFor={name}
-        className="mb-2 block text-sm font-medium text-white/75"
+        className="mb-2 block text-sm sm:text-base font-medium text-white/75"
       >
         {label} {optional && <span className="text-white/35">({optionalText})</span>}
       </label>
@@ -191,7 +191,7 @@ function Field({
         id={name}
         name={name}
         type={type}
-        className="w-full rounded-2xl border-2 border-white/15 bg-white/5 px-5 py-4 text-sm text-white placeholder:text-white/40 outline-none backdrop-blur-md transition-all duration-300 hover:border-white/25 focus:border-amber-400/50 focus:bg-white/[0.08] focus:ring-4 focus:ring-amber-400/20 focus:scale-[1.01]"
+        className="w-full rounded-2xl border-2 border-white/15 bg-white/5 px-5 py-4 text-sm sm:text-base text-white placeholder:text-white/40 outline-none backdrop-blur-md transition-all duration-300 hover:border-white/25 focus:border-amber-400/50 focus:bg-white/[0.08] focus:ring-4 focus:ring-amber-400/20 focus:scale-[1.01]"
         placeholder={placeholder}
       />
     </div>
@@ -207,10 +207,10 @@ function ContactPoint({
 }) {
   return (
     <div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-md">
-      <div className="text-sm font-semibold uppercase tracking-[0.18em] text-amber-300">
+      <div className="text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-amber-300">
         {title}
       </div>
-      <p className="mt-2 text-sm leading-7 text-white/60">{text}</p>
+      <p className="mt-2 text-sm sm:text-base leading-7 text-white/60">{text}</p>
     </div>
   );
 }

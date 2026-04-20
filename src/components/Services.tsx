@@ -131,7 +131,7 @@ export default function Services() {
               </p>
 
               <div className="mt-6">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">
+                <p className="text-xs sm:text-[11px] font-semibold uppercase tracking-[0.22em] text-white/40">
                   {t.services.whatsIncluded}
                 </p>
 

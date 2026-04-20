@@ -111,13 +111,13 @@ export default function Navbar() {
                 />
               </motion.div>
 
-              <div className="hidden sm:block">
+              <div className="block">
                 <span
-                  className={`block text-lg font-bold tracking-tight text-white group-hover:text-amber-300 transition-colors duration-300 ${poppins.className}`}
+                  className={`block text-base sm:text-lg font-bold tracking-tight text-white group-hover:text-amber-300 transition-colors duration-300 ${poppins.className}`}
                 >
                   E&amp;F Rise Digital
                 </span>
-                <span className="block text-[11px] uppercase tracking-[0.25em] text-white/50 font-medium group-hover:text-white/70 transition-colors duration-300">
+                <span className="hidden sm:block text-[11px] uppercase tracking-[0.25em] text-white/50 font-medium group-hover:text-white/70 transition-colors duration-300">
                   {t.hero.title}
                 </span>
               </div>
@@ -141,7 +141,7 @@ export default function Navbar() {
                 <button
                   onClick={() => setLanguage("en")}
                   aria-label="Switch to English"
-                  className={`group relative flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1.5 transition-all duration-300 hover:scale-105 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 ${
+                  className={`group relative flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-2 min-h-[44px] min-w-[60px] justify-center transition-all duration-300 hover:scale-105 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 ${
                     language === "en" ? "ring-2 ring-amber-400/70 scale-105 bg-white/10" : "opacity-70 hover:opacity-100"
                   }`}
                 >
@@ -151,7 +151,7 @@ export default function Navbar() {
                 <button
                   onClick={() => setLanguage("es")}
                   aria-label="Cambiar a Español"
-                  className={`group relative flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1.5 transition-all duration-300 hover:scale-105 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 ${
+                  className={`group relative flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-2 min-h-[44px] min-w-[60px] justify-center transition-all duration-300 hover:scale-105 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 ${
                     language === "es" ? "ring-2 ring-amber-400/70 scale-105 bg-white/10" : "opacity-70 hover:opacity-100"
                   }`}
                 >
@@ -176,7 +176,7 @@ export default function Navbar() {
                 <button
                   onClick={() => setLanguage("en")}
                   aria-label="Switch to English"
-                  className={`flex cursor-pointer items-center gap-1 rounded-lg px-2 py-1 transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 ${
+                  className={`flex cursor-pointer items-center gap-1 rounded-lg px-2.5 py-2 min-h-[44px] min-w-[52px] justify-center transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 ${
                     language === "en" ? "ring-2 ring-amber-400/70 scale-105 bg-white/10" : "opacity-70"
                   }`}
                 >
@@ -186,7 +186,7 @@ export default function Navbar() {
                 <button
                   onClick={() => setLanguage("es")}
                   aria-label="Cambiar a Español"
-                  className={`flex cursor-pointer items-center gap-1 rounded-lg px-2 py-1 transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 ${
+                  className={`flex cursor-pointer items-center gap-1 rounded-lg px-2.5 py-2 min-h-[44px] min-w-[52px] justify-center transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 ${
                     language === "es" ? "ring-2 ring-amber-400/70 scale-105 bg-white/10" : "opacity-70"
                   }`}
                 >
