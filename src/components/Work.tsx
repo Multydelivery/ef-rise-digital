@@ -7,12 +7,12 @@ import { useMemo, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 15 },
   show: (delay = 0) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.75,
+      duration: 0.4,
       delay,
       ease: [0.22, 1, 0.36, 1] as const,
     },
@@ -83,7 +83,7 @@ export default function Work() {
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
           custom={0}
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/80 backdrop-blur-md">
@@ -109,8 +109,8 @@ export default function Work() {
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-          custom={0.1}
+          viewport={{ once: true, amount: 0.2 }}
+          custom={0}
         >
           {categories.map((category) => {
             const isActive = activeCategory === category;
@@ -144,12 +144,12 @@ export default function Work() {
               <motion.article
                 key={project.id}
                 layout
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 15 }}
                 transition={{
-                  duration: 0.5,
-                  delay: index * 0.08,
+                  duration: 0.35,
+                  delay: index * 0.05,
                   ease: [0.22, 1, 0.36, 1],
                 }}
                 whileHover={{ scale: 1.02, y: -8 }}
@@ -264,8 +264,8 @@ export default function Work() {
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-          custom={0.2}
+          viewport={{ once: true, amount: 0.2 }}
+          custom={0}
         >
           <h3 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
             {t.work.ctaTitle}

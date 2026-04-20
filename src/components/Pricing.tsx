@@ -5,12 +5,12 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 15 },
   show: (delay = 0) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.75,
+      duration: 0.4,
       delay,
       ease: [0.22, 1, 0.36, 1] as const,
     },
@@ -42,7 +42,7 @@ export default function Pricing() {
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
           custom={0}
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/80 backdrop-blur-md">
@@ -71,7 +71,7 @@ export default function Pricing() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, amount: 0.2 }}
-              custom={index * 0.1}
+              custom={index * 0.05}
               whileHover={{ scale: 1.03, y: -8 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className={`group relative overflow-hidden rounded-3xl border p-8 backdrop-blur-xl transition-all duration-500 active:scale-[0.99] ${
@@ -166,8 +166,8 @@ export default function Pricing() {
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-          custom={0.2}
+          viewport={{ once: true, amount: 0.2 }}
+          custom={0}
         >
           <h3 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
             {t.pricing.customSolutionTitle}

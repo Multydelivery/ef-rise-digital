@@ -7,12 +7,12 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const serviceIcons = ["🚀", "📍", "📱", "⭐", "🤖", "🎨"];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 15 },
   show: (delay = 0) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.4,
       delay,
       ease: [0.22, 1, 0.36, 1] as const,
     },
@@ -24,8 +24,8 @@ const containerVariants = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
+      staggerChildren: 0.05,
+      delayChildren: 0,
     },
   },
 };
@@ -33,15 +33,13 @@ const containerVariants = {
 const cardVariants = {
   hidden: { 
     opacity: 0, 
-    y: 30,
-    scale: 0.95
+    y: 20
   },
   show: {
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: {
-      duration: 0.6,
+      duration: 0.4,
       ease: [0.22, 1, 0.36, 1] as const,
     },
   },
@@ -68,7 +66,7 @@ export default function Services() {
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.2 }}
           custom={0}
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/80 backdrop-blur-md">
@@ -93,7 +91,7 @@ export default function Services() {
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.1 }}
         >
           {services.map((service, idx) => (
             <motion.article
@@ -200,8 +198,8 @@ export default function Services() {
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.4 }}
-          custom={0.1}
+          viewport={{ once: true, amount: 0.2 }}
+          custom={0}
         >
           <h3 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
             {t.services.customPackageTitle}

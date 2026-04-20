@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 15 },
   show: (delay = 0) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.75,
+      duration: 0.4,
       delay,
       ease: [0.22, 1, 0.36, 1] as const,
     },
@@ -35,7 +35,7 @@ export default function Contact() {
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.25 }}
+          viewport={{ once: true, amount: 0.15 }}
           custom={0}
           className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-2xl shadow-black/20 backdrop-blur-2xl sm:p-10 lg:p-12"
         >
