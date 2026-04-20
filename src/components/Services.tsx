@@ -7,24 +7,22 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const serviceIcons = ["🚀", "📍", "📱", "⭐", "🤖", "🎨"];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 15 },
+  hidden: { opacity: 1 },
   show: (delay = 0) => ({
     opacity: 1,
-    y: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.3,
       delay,
-      ease: [0.22, 1, 0.36, 1] as const,
     },
   }),
 };
 
 const containerVariants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 1 },
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.05,
+      staggerChildren: 0.03,
       delayChildren: 0,
     },
   },
@@ -32,15 +30,12 @@ const containerVariants = {
 
 const cardVariants = {
   hidden: { 
-    opacity: 0, 
-    y: 20
+    opacity: 1
   },
   show: {
     opacity: 1,
-    y: 0,
     transition: {
-      duration: 0.4,
-      ease: [0.22, 1, 0.36, 1] as const,
+      duration: 0.3,
     },
   },
 };

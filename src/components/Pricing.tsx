@@ -5,14 +5,12 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 15 },
+  hidden: { opacity: 1 },
   show: (delay = 0) => ({
     opacity: 1,
-    y: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.3,
       delay,
-      ease: [0.22, 1, 0.36, 1] as const,
     },
   }),
 };
@@ -71,10 +69,8 @@ export default function Pricing() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, amount: 0.2 }}
-              custom={index * 0.05}
-              whileHover={{ scale: 1.03, y: -8 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className={`group relative overflow-hidden rounded-3xl border p-8 backdrop-blur-xl transition-all duration-500 active:scale-[0.99] ${
+              custom={index * 0.02}
+              className={`group relative overflow-hidden rounded-3xl border p-8 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 active:scale-[0.99] ${
                 plan.highlight
                   ? "border-amber-400/50 bg-gradient-to-b from-amber-400/15 to-white/[0.08] shadow-2xl shadow-amber-500/20"
                   : "border-white/10 bg-white/5 hover:border-amber-400/30 hover:bg-white/[0.08] hover:shadow-2xl hover:shadow-amber-500/10"

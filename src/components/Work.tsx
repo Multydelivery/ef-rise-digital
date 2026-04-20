@@ -7,14 +7,12 @@ import { useMemo, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 15 },
+  hidden: { opacity: 1 },
   show: (delay = 0) => ({
     opacity: 1,
-    y: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.3,
       delay,
-      ease: [0.22, 1, 0.36, 1] as const,
     },
   }),
 };
@@ -144,16 +142,14 @@ export default function Work() {
               <motion.article
                 key={project.id}
                 layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{
-                  duration: 0.35,
-                  delay: index * 0.05,
-                  ease: [0.22, 1, 0.36, 1],
+                  duration: 0.25,
+                  delay: index * 0.03,
                 }}
-                whileHover={{ scale: 1.02, y: -8 }}
-                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl transition-all duration-500 hover:border-amber-400/40 hover:bg-white/[0.08] hover:shadow-2xl hover:shadow-amber-500/10 active:scale-[0.99]"
+                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl transition-all duration-300 hover:border-amber-400/40 hover:bg-white/[0.08] hover:shadow-2xl hover:shadow-amber-500/10 active:scale-[0.99]"
               >
                 {/* Image */}
                 <div className="relative h-64 overflow-hidden">

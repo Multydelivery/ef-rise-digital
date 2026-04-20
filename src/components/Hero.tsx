@@ -5,19 +5,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  show: (delay = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.75,
-      delay,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  }),
-};
-
 const orbFloat = (duration = 10, delay = 0) => ({
   scale: [1, 1.12, 1],
   opacity: [0.18, 0.28, 0.18],
@@ -70,47 +57,31 @@ export default function Hero() {
 
       <div className="relative mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
         <div className="max-w-4xl">
-          <motion.div
+          <div
             className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-md shadow-lg shadow-black/20"
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            custom={0}
           >
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.8)]" />
             {t.hero.tagline}
-          </motion.div>
+          </div>
 
-          <motion.h1
+          <h1
             className="mt-7 max-w-5xl text-[2.25rem] font-black leading-[0.95] tracking-tight xs:text-4xl sm:text-5xl md:text-7xl lg:text-8xl"
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            custom={0.15}
           >
             {t.hero.title}{" "}
             <span className="bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 bg-clip-text text-transparent">
               {t.hero.titleHighlight}
             </span>{" "}
             {t.hero.titleEnd}
-          </motion.h1>
+          </h1>
 
-          <motion.p
+          <p
             className="mt-6 max-w-2xl text-base leading-7 text-white/75 sm:text-lg sm:leading-8 md:text-xl"
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            custom={0.3}
           >
             {t.hero.subtitle}
-          </motion.p>
+          </p>
 
-          <motion.div
+          <div
             className="mt-10 flex flex-col gap-4 sm:flex-row"
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            custom={0.45}
           >
             <Link
               href="#contact"
@@ -128,20 +99,16 @@ export default function Hero() {
             >
               {t.hero.ctaSecondary}
             </Link>
-          </motion.div>
+          </div>
 
-          <motion.div
+          <div
             className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-4"
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            custom={0.6}
           >
             <Stat label={t.hero.stats.websites.label} value={t.hero.stats.websites.value} />
             <Stat label={t.hero.stats.google.label} value={t.hero.stats.google.value} />
             <Stat label={t.hero.stats.social.label} value={t.hero.stats.social.value} />
             <Stat label={t.hero.stats.automation.label} value={t.hero.stats.automation.value} />
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -153,14 +120,13 @@ export default function Hero() {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <motion.div
+    <div
       className="group rounded-2xl border border-white/10 bg-white/10 p-5 backdrop-blur-xl shadow-lg shadow-black/20 transition-all duration-300 hover:-translate-y-1 hover:border-amber-400/40 hover:bg-white/15"
-      whileHover={{ y: -4 }}
     >
       <div className="text-base font-semibold text-white sm:text-lg">{value}</div>
               <div className="mt-2 text-xs sm:text-[11px] font-medium uppercase tracking-[0.22em] text-white/55">
         {label}
       </div>
-    </motion.div>
+    </div>
   );
 }

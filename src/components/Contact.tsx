@@ -4,14 +4,12 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 15 },
+  hidden: { opacity: 1 },
   show: (delay = 0) => ({
     opacity: 1,
-    y: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.3,
       delay,
-      ease: [0.22, 1, 0.36, 1] as const,
     },
   }),
 };
