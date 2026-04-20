@@ -95,7 +95,15 @@ export default function Navbar() {
             <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
             {/* Logo */}
-            <Link href="/" className="relative z-10 flex items-center gap-3 group">
+            <Link 
+              href="/" 
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setIsMenuOpen(false);
+              }}
+              className="relative z-10 flex items-center gap-3 group cursor-pointer"
+            >
               <motion.div
                 whileHover={{ scale: 1.05, rotate: 5 }}
                 whileTap={{ scale: 0.95 }}
@@ -103,7 +111,7 @@ export default function Navbar() {
                 className="relative h-11 w-11 overflow-hidden rounded-full border-2 border-white/20 bg-gradient-to-br from-white/10 to-white/5 shadow-xl shadow-amber-500/10 sm:h-12 sm:w-12 group-hover:border-amber-400/40 group-hover:shadow-amber-500/20 transition-all duration-300"
               >
                 <Image
-                  src="/enfrisedigitalrocketearth.png"
+                  src="/EFrisedigitalgold.png"
                   alt="E&F Rise Digital"
                   fill
                   priority

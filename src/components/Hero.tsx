@@ -34,6 +34,13 @@ export default function Hero() {
       {/* Overlays */}
       <div className="absolute inset-0 bg-black/55" />
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/30" />
+      
+      {/* Animated mesh gradient */}
+      <div className="absolute inset-0 opacity-40">
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/30 via-orange-500/20 to-purple-500/20 animate-gradient" />
+        <div className="absolute inset-0 bg-gradient-to-tl from-blue-500/20 via-transparent to-pink-500/20 animate-gradient-reverse" />
+      </div>
+      
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(245,158,11,0.18),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.08),transparent_25%)]" />
 
       {/* Ambient orbs */}
@@ -85,10 +92,12 @@ export default function Hero() {
           >
             <Link
               href="#contact"
-              className="group inline-flex items-center justify-center rounded-2xl bg-amber-400 px-8 py-4 text-base font-semibold text-black shadow-xl shadow-amber-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-300 focus:outline-none focus:ring-4 focus:ring-amber-300/40"
+              className="group relative inline-flex items-center justify-center overflow-hidden rounded-2xl bg-amber-400 px-8 py-4 text-base font-semibold text-black shadow-xl shadow-amber-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-300 hover:shadow-2xl hover:shadow-amber-500/40 focus:outline-none focus:ring-4 focus:ring-amber-300/40"
             >
-              {t.hero.ctaPrimary}
-              <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
+              {/* Button glow effect */}
+              <span className="absolute inset-0 bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300 opacity-0 transition-opacity duration-300 group-hover:opacity-30 blur-xl" />
+              <span className="relative z-10">{t.hero.ctaPrimary}</span>
+              <span className="relative z-10 ml-2 transition-transform duration-300 group-hover:translate-x-1">
                 →
               </span>
             </Link>

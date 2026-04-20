@@ -19,7 +19,8 @@ const fadeUp = {
 
 export default function Work() {
   const { t } = useLanguage();
-  const [activeCategory, setActiveCategory] = useState(t.work.filterAll);
+  // Use index-based filtering (0 = "All", 1-3 = specific categories)
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
 
   // Use translations for projects
   const projects = useMemo(() => {
@@ -57,9 +58,10 @@ export default function Work() {
   ], [t.work.filterAll, t.work.categories.webDesign, t.work.categories.digitalMarketing, t.work.categories.mobileApp]);
 
   const filteredProjects = useMemo(() => {
-    if (activeCategory === t.work.filterAll) return projects;
-    return projects.filter((project) => project.category === activeCategory);
-  }, [activeCategory, projects, t.work.filterAll]);
+    if (activeCategoryIndex === 0) return projects;
+    const selectedCategory = categories[activeCategoryIndex];
+    return projects.filter((project) => project.category === selectedCategory);
+  }, [activeCategoryIndex, projects, categories]);
 
   return (
     <section
@@ -110,13 +112,13 @@ export default function Work() {
           viewport={{ once: true, amount: 0.2 }}
           custom={0}
         >
-          {categories.map((category) => {
-            const isActive = activeCategory === category;
+          {categories.map((category, index) => {
+            const isActive = activeCategoryIndex === index;
 
             return (
               <button
                 key={category}
-                onClick={() => setActiveCategory(category)}
+                onClick={() => setActiveCategoryIndex(index)}
                 className={`group/filter relative overflow-hidden rounded-full px-6 py-3 text-sm font-bold transition-all duration-300 active:scale-95 ${
                   isActive
                     ? "bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 text-white shadow-xl shadow-amber-500/30 scale-105"
@@ -274,11 +276,13 @@ export default function Work() {
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               href="#contact"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-amber-400 px-8 py-4 text-base font-semibold text-black shadow-xl shadow-amber-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-300 focus:outline-none focus:ring-4 focus:ring-amber-300/40"
+              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-2xl bg-amber-400 px-8 py-4 text-base font-semibold text-black shadow-xl shadow-amber-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-300 hover:shadow-2xl hover:shadow-amber-500/40 focus:outline-none focus:ring-4 focus:ring-amber-300/40"
             >
-              {t.work.ctaButton}
+              {/* Button glow effect */}
+              <span className="absolute inset-0 bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300 opacity-0 transition-opacity duration-300 group-hover:opacity-30 blur-xl" />
+              <span className="relative z-10">{t.work.ctaButton}</span>
               <svg
-                className="h-5 w-5"
+                className="relative z-10 h-5 w-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
