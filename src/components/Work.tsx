@@ -37,7 +37,7 @@ export default function Work() {
         "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&h=800&fit=crop",
         "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&h=800&fit=crop"
       ][index],
-      link: index === 0 ? "https://bella-italia-restaurant-two.vercel.app/" : index === 1 ? "https://real-state-lead-demo.vercel.app/" : "#",
+      link: index === 0 ? "https://bella-italia-restaurant-two.vercel.app/" : index === 1 ? "https://real-state-lead-demo.vercel.app/" : index === 2 ? "https://local-gym-app.vercel.app/es" : "#",
       tags: [
         ["Next.js", "Ordering", "SEO"],
         ["Google Ads", "Landing Pages", "SEO"],
