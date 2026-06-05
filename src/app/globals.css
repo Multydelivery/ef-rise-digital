@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #1b1b1d;
+  --background: #f8fafc;
+  --foreground: #111827;
 }
 
 @theme inline {
@@ -12,98 +12,49 @@
   --font-mono: var(--font-geist-mono);
 }
 
+* {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  background: var(--background);
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 body {
-  background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 25%, #d4af37 50%, #1f1f1f 75%, #424242 100%);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
-  color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  min-width: 320px;
   overflow-x: hidden;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  body {
-    animation: none;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 25%, #d4af37 50%, #1f1f1f 75%, #424242 100%);
-    background-size: 100% 100%;
-  }
+::selection {
+  background: #fbbf24;
+  color: #111827;
 }
 
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Animation utilities */
-@keyframes blob {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(20px, -50px) scale(1.1); }
-  50% { transform: translate(-20px, 20px) scale(0.9); }
-  75% { transform: translate(50px, 50px) scale(1.05); }
-}
-
-.animate-blob {
-  animation: blob 7s infinite;
-}
-
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-blob {
-    animation: none;
-  }
-}
-
-/* Animated gradient backgrounds for vivid effects */
-@keyframes gradient {
-  0%, 100% {
-    transform: translate(0%, 0%) rotate(0deg) scale(1);
-  }
-  33% {
-    transform: translate(10%, -10%) rotate(120deg) scale(1.1);
-  }
-  66% {
-    transform: translate(-10%, 10%) rotate(240deg) scale(0.9);
-  }
-}
-
-@keyframes gradient-reverse {
-  0%, 100% {
-    transform: translate(0%, 0%) rotate(0deg) scale(1);
-  }
-  33% {
-    transform: translate(-10%, 10%) rotate(-120deg) scale(0.9);
-  }
-  66% {
-    transform: translate(10%, -10%) rotate(-240deg) scale(1.1);
-  }
-}
-
-.animate-gradient {
-  animation: gradient 20s ease-in-out infinite;
-}
-
-.animate-gradient-reverse {
-  animation: gradient-reverse 25s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-gradient,
-  .animate-gradient-reverse {
-    animation: none;
-  }
+input,
+textarea,
+button,
+select {
+  font: inherit;
 }

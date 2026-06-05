@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import type OpenAI from 'openai';
 import { openai, systemPrompt, tools, executeFunction } from '@/lib/openai';
 import type { ChatMessage } from '@/types/lead';
 
@@ -33,9 +34,14 @@ export async function POST(req: Request) {
     
     // If the model wants to call functions
     if (responseMessage.tool_calls && responseMessage.tool_calls.length > 0) {
+      const functionToolCalls = responseMessage.tool_calls.filter(
+        (toolCall): toolCall is Extract<OpenAI.Chat.Completions.ChatCompletionMessageToolCall, { type: 'function' }> =>
+          toolCall.type === 'function'
+      );
+
       // Execute all tool calls
       const toolResults = await Promise.all(
-        responseMessage.tool_calls.map(async (toolCall: any) => {
+        functionToolCalls.map(async (toolCall) => {
           const functionName = toolCall.function.name;
           const functionArgs = JSON.parse(toolCall.function.arguments);
           
@@ -65,7 +71,7 @@ export async function POST(req: Request) {
       
       return NextResponse.json({
         message: finalCompletion.choices[0].message.content,
-        toolsUsed: responseMessage.tool_calls.map((tc: any) => tc.function.name),
+        toolsUsed: functionToolCalls.map((tc) => tc.function.name),
       });
     }
     
@@ -74,18 +80,21 @@ export async function POST(req: Request) {
       message: responseMessage.content,
     });
     
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Chat API error:', error);
+    const status = typeof error === 'object' && error !== null && 'status' in error
+      ? (error as { status?: number }).status
+      : undefined;
     
     // Handle OpenAI-specific errors
-    if (error?.status === 401) {
+    if (status === 401) {
       return NextResponse.json(
         { error: 'OpenAI API key is invalid' },
         { status: 500 }
       );
     }
     
-    if (error?.status === 429) {
+    if (status === 429) {
       return NextResponse.json(
         { 
           error: 'OpenAI quota exceeded',

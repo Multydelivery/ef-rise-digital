@@ -2,6 +2,17 @@ import OpenAI from 'openai';
 import type { Lead, ServiceCategory } from '@/types/lead';
 import { getDatabase } from './mongodb';
 
+type FunctionArgs = Partial<Lead> & {
+  budgetTier?: string;
+  preferredTime?: string;
+};
+
+type FunctionResult = {
+  success: boolean;
+  message: string;
+  data?: Record<string, unknown>;
+};
+
 export const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || 'dummy-key-for-build',
 });
@@ -158,18 +169,21 @@ export const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
 // Function execution
 export async function executeFunction(
   name: string,
-  args: any
-): Promise<{ success: boolean; message: string; data?: any }> {
+  args: FunctionArgs
+): Promise<FunctionResult> {
   try {
     switch (name) {
       case 'saveLead':
         return await saveLead(args);
       
       case 'recommendService':
-        return recommendService(args);
+        return recommendService({
+          serviceCategory: args.serviceCategory!,
+          budgetTier: args.budgetTier,
+        });
       
       case 'bookConsultation':
-        return bookConsultation(args);
+        return bookConsultation({ preferredTime: args.preferredTime || 'a time that works for you' });
       
       default:
         return { success: false, message: 'Unknown function' };
@@ -212,7 +226,7 @@ async function saveLead(args: Partial<Lead>) {
   const db = await getDatabase();
   const result = await db.collection('leads').insertOne(lead);
   
-  console.log('📋 LEAD CAPTURED & SAVED:', {
+  console.log('LEAD CAPTURED & SAVED:', {
     name: lead.name,
     email: lead.email,
     business: lead.businessName,

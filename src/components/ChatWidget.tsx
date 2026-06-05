@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -74,7 +75,7 @@ export default function ChatWidget() {
       setMessages([
         {
           role: 'assistant',
-          content: "Hey there! 👋 I'm your E&F Rise Digital assistant. I'm here to help your business shine online! How can I help you today?",
+          content: "Hi, I'm your E&F Rise Digital assistant. I can help with websites, Google visibility, social content, and automation. What would you like to improve?",
         },
       ]);
     }
@@ -214,9 +215,11 @@ export default function ChatWidget() {
                 className="h-12 w-12 sm:h-14 sm:w-14 flex items-center justify-center relative rounded-full overflow-hidden ring-2 ring-white/30"
               >
                 {/* Professional Agent Photo */}
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face"
                   alt="Customer Support Agent"
+                  width={56}
+                  height={56}
                   className="h-full w-full object-cover"
                 />
                 {/* Online status dot */}
@@ -250,7 +253,7 @@ export default function ChatWidget() {
             transition={{ delay: 1.5 }}
             className="hidden sm:block absolute right-20 top-1/2 -translate-y-1/2 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2.5 rounded-full shadow-lg font-semibold text-sm whitespace-nowrap pointer-events-none"
           >
-            💬 Chat with us!
+            Chat with us
             <div className="absolute right-[-6px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] border-l-orange-500"></div>
           </motion.div>
         )}
@@ -290,9 +293,11 @@ export default function ChatWidget() {
                 transition={{ type: 'spring', delay: 0.2 }}
               >
                 {/* Professional Agent Photo */}
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face"
                   alt="E&F Rise Digital Support Agent"
+                  width={56}
+                  height={56}
                   className="h-full w-full object-cover"
                 />
                 
@@ -356,9 +361,11 @@ export default function ChatWidget() {
                   {/* Assistant Avatar */}
                   {msg.role === 'assistant' && (
                     <div className="shrink-0 h-8 w-8 sm:h-9 sm:w-9 rounded-full overflow-hidden shadow-md ring-2 ring-amber-200">
-                      <img
+                      <Image
                         src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face"
                         alt="Agent"
+                        width={36}
+                        height={36}
                         className="h-full w-full object-cover"
                       />
                     </div>
@@ -383,9 +390,11 @@ export default function ChatWidget() {
                   className="flex justify-start gap-2"
                 >
                   <div className="shrink-0 h-8 w-8 sm:h-9 sm:w-9 rounded-full overflow-hidden shadow-md ring-2 ring-amber-200">
-                    <img
+                    <Image
                       src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face"
                       alt="Agent"
+                      width={36}
+                      height={36}
                       className="h-full w-full object-cover"
                     />
                   </div>
@@ -484,7 +493,7 @@ export default function ChatWidget() {
               <div className="mt-3 flex items-center justify-center gap-2">
                 <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-green-500 animate-pulse"></div>
                 <p className="text-[10px] sm:text-xs text-gray-600 font-medium">
-                  🔒 Secured by AI • Instant responses
+                  Secured by AI | Instant responses
                 </p>
               </div>
             </div>

@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 // GET all leads (for admin dashboard)
 // TODO: Add authentication before production use
 // TEMPORARY: Disabled while MongoDB is being set up
-export async function GET(req: Request) {
+export async function GET() {
   return NextResponse.json({ 
     message: 'MongoDB temporarily disabled for testing',
     leads: [],
@@ -48,7 +48,7 @@ export async function GET(req: Request) {
 // PATCH - Update lead status
 // TODO: Add authentication before production use
 // TEMPORARY: Disabled while MongoDB is being set up
-export async function PATCH(req: Request) {
+export async function PATCH() {
   return NextResponse.json({ 
     message: 'MongoDB temporarily disabled for testing',
     note: 'Re-enable when MongoDB is configured'
